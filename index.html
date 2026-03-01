@@ -362,9 +362,13 @@ select option{background:var(--s1);}textarea{resize:vertical;}
           <button class="tone-chip" onclick="selTone(this,'empathetic')">Empathetic</button>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
         <div class="field"><label>Daily Report Time</label><input type="time" id="cfg-rtime" value="20:00"/></div>
-        <div class="field"><label>Delay Between Replies (sec)</label><input type="number" id="cfg-delay" value="3" min="1" max="30"/></div>
+        <div class="field"><label>Reply Delay (sec)</label><input type="number" id="cfg-delay" value="4" min="2" max="30"/></div>
+        <div class="field"><label>API Throttle (ms)</label><input type="number" id="cfg-throttle" value="1200" min="800" max="5000" step="200"/></div>
+      </div>
+      <div class="info-box" style="margin-top:6px;font-size:12px;line-height:1.6;">
+        ⚡ <strong>Getting 429 errors?</strong> Increase API Throttle to 2000–3000 ms. The engine auto-retries with exponential backoff. Google allows ~50 requests/min per API endpoint.
       </div>
     </div>
     <button class="btn btn-green" onclick="doConnect()" style="width:100%;justify-content:center;font-size:15px;padding:13px;">
@@ -648,7 +652,8 @@ const cfg={
   get client(){return ls('gmb_c')||'';},
   get claude(){return ls('gmb_k')||'';},
   get tone(){return ls('gmb_t')||'professional';},
-  get delay(){return parseInt(ls('gmb_d')||'3')*1000;},
+  get delay(){return parseInt(ls('gmb_d')||'4')*1000;},
+  get throttle(){return parseInt(ls('gmb_th')||'1200');},
   get rtime(){return ls('gmb_rt')||'20:00';},
 };
 
@@ -669,8 +674,9 @@ window.onload=()=>{
 function loadCfgUI(){
   document.getElementById('cfg-client').value=cfg.client;
   document.getElementById('cfg-claude').value=cfg.claude;
-  document.getElementById('cfg-delay').value=parseInt(cfg.delay/1000)||3;
+  document.getElementById('cfg-delay').value=parseInt(cfg.delay/1000)||4;
   document.getElementById('cfg-rtime').value=cfg.rtime;
+  const th=document.getElementById('cfg-throttle');if(th)th.value=cfg.throttle||1200;
   document.querySelectorAll('.tone-chip').forEach(c=>{
     c.classList.toggle('sel',c.textContent.toLowerCase().startsWith(cfg.tone));
   });
@@ -698,6 +704,7 @@ function doConnect(){
   ls('gmb_c',cid);ls('gmb_k',ck);
   ls('gmb_d',document.getElementById('cfg-delay').value);
   ls('gmb_rt',document.getElementById('cfg-rtime').value);
+  const th=document.getElementById('cfg-throttle');if(th)ls('gmb_th',th.value);
   try{
     google.accounts.oauth2.initTokenClient({
       client_id:cid,
@@ -733,57 +740,156 @@ function signOut(){
 }
 
 // ═══════════════════════════════════════════════════════
-//  GMB API
+//  GMB API — with exponential backoff + retry on 429
 // ═══════════════════════════════════════════════════════
-async function gmb(url,opts={}){
-  const r=await fetch(url,{...opts,headers:{'Authorization':'Bearer '+gToken,'Content-Type':'application/json',...(opts.headers||{})}});
+
+// Global request throttle — max 1 GMB request per THROTTLE_MS
+// THROTTLE_MS is dynamic — read from config each call
+const THROTTLE_MS_DEFAULT = 1200;
+function getThrottle(){ return parseInt(ls('gmb_th')||String(THROTTLE_MS_DEFAULT)); }
+let _lastGmbCall = 0;
+
+async function throttledFetch(url, opts={}, attempt=0){
+  // Enforce minimum gap between calls
+  const now = Date.now();
+  const gap = now - _lastGmbCall;
+  if(gap < getThrottle()) await sleep(getThrottle() - gap);
+  _lastGmbCall = Date.now();
+
+  const r = await fetch(url, {
+    ...opts,
+    headers:{
+      'Authorization':'Bearer '+gToken,
+      'Content-Type':'application/json',
+      ...(opts.headers||{})
+    }
+  });
+
+  // 429 = rate limited → exponential backoff
+  if(r.status === 429){
+    const backoff = Math.min(2000 * Math.pow(2, attempt), 32000); // 2s, 4s, 8s … 32s max
+    const retryAfter = r.headers.get('Retry-After');
+    const wait = retryAfter ? parseInt(retryAfter)*1000 : backoff;
+    log(`⏳ Rate limited — waiting ${Math.round(wait/1000)}s before retry (attempt ${attempt+1})...`,'warn');
+    updateRateLabel(`Rate limited — retrying in ${Math.round(wait/1000)}s...`);
+    await sleep(wait);
+    if(attempt < 6) return throttledFetch(url, opts, attempt+1);
+    throw new Error('Rate limit persists after 6 retries. Please wait a minute and try again.');
+  }
+
+  // 503 / 500 → short retry
+  if((r.status===503||r.status===500) && attempt < 3){
+    await sleep(3000 * (attempt+1));
+    return throttledFetch(url, opts, attempt+1);
+  }
+
   if(!r.ok){const t=await r.text();throw new Error('GMB '+r.status+': '+t.slice(0,200));}
   return r.json();
 }
 
+async function gmb(url, opts={}){ return throttledFetch(url, opts); }
+
 async function gmbUpload(url,bytes,mimeType){
+  const now=Date.now();const gap=now-_lastGmbCall;
+  if(gap<getThrottle())await sleep(getThrottle()-gap);
+  _lastGmbCall=Date.now();
   const r=await fetch(url,{method:'POST',headers:{'Authorization':'Bearer '+gToken,'Content-Type':mimeType},body:bytes});
   if(!r.ok){const t=await r.text();throw new Error('Upload '+r.status+': '+t.slice(0,200));}
   return r.json();
 }
 
+function updateRateLabel(msg){
+  const el=document.getElementById('q-sub');
+  if(el) el.textContent=msg;
+  const el2=document.getElementById('prog-label');
+  if(el2) el2.textContent=msg;
+}
+
 async function loadLocations(){
   document.getElementById('run-btn').disabled=true;
   document.getElementById('opt-run-btn').disabled=true;
-  document.getElementById('q-sub').textContent='Loading...';
+  document.getElementById('q-sub').textContent='Loading accounts...';
   locations=[];
+
   try{
+    // Step 1 — Get accounts (single call)
+    log('Fetching Google accounts...','info');
     const accts=await gmb('https://mybusinessaccountmanagement.googleapis.com/v1/accounts');
-    for(const a of (accts.accounts||[])){
+    const accountList=accts.accounts||[];
+    log(`Found ${accountList.length} Google account(s)`,'info');
+
+    // Step 2 — Get locations per account (throttled, sequential)
+    for(const a of accountList){
+      document.getElementById('q-sub').textContent=`Loading locations from ${a.accountName||a.name}...`;
       try{
-        const ld=await gmb(`https://mybusinessbusinessinformation.googleapis.com/v1/${a.name}/locations?readMask=name,title,categories,phoneNumbers,websiteUri`);
-        for(const l of (ld.locations||[])){
-          const aid=a.name.replace('accounts/',''), lid=l.name.split('/').pop();
-          locations.push({rawName:l.name,title:l.title||l.name,acctId:aid,locId:lid,
-            categories:(l.categories?.primaryCategory?.displayName)||'Business',
-            phone:l.phoneNumbers?.primaryPhone||'',website:l.websiteUri||'',
-            unreplied:0,done:false,error:null,optimized:false,reviews:[],keywords:[],profile:null});
-        }
-      }catch(e){console.warn(a.name,e);}
+        let pageToken='';
+        do{
+          const url=`https://mybusinessbusinessinformation.googleapis.com/v1/${a.name}/locations?readMask=name,title,categories,phoneNumbers,websiteUri&pageSize=100`+(pageToken?`&pageToken=${pageToken}`:'');
+          const ld=await gmb(url);
+          for(const l of (ld.locations||[])){
+            const aid=a.name.replace('accounts/',''), lid=l.name.split('/').pop();
+            locations.push({
+              rawName:l.name, title:l.title||l.name, acctId:aid, locId:lid,
+              categories:(l.categories?.primaryCategory?.displayName)||'Business',
+              phone:l.phoneNumbers?.primaryPhone||'', website:l.websiteUri||'',
+              unreplied:0, done:false, error:null, optimized:false,
+              reviews:[], keywords:[], profile:null
+            });
+          }
+          pageToken=ld.nextPageToken||'';
+        }while(pageToken);
+      }catch(e){ log(`Could not load locations for ${a.name}: ${e.message}`,'warn'); }
     }
+
     document.getElementById('q-badge').textContent=locations.length;
-    document.getElementById('q-sub').textContent=locations.length+' profiles loaded';
+    document.getElementById('q-sub').textContent=locations.length+' profiles loaded — counting reviews...';
     document.getElementById('s-locs').textContent='0/'+locations.length;
     document.getElementById('run-btn').disabled=false;
     document.getElementById('opt-run-btn').disabled=false;
-    log(`Loaded ${locations.length} GMB locations`,'info');
-    // Quick unreplied count
-    let total=0;
-    for(const l of locations){
-      try{
-        const rd=await gmb(`https://mybusiness.googleapis.com/v4/accounts/${l.acctId}/locations/${l.locId}/reviews?pageSize=5`);
-        l.unreplied=(rd.reviews||[]).filter(r=>!r.reviewReply?.comment).length;
-        total+=l.unreplied;
-      }catch(e){}
-    }
-    document.getElementById('s-pending').textContent=total;
+    log(`✓ Loaded ${locations.length} GMB locations`,'info');
     renderQueue(); renderStudioLocList();
-  }catch(e){toast('Load failed: '+e.message,'err');}
+
+    // Step 3 — Count unreplied reviews SLOWLY (throttled) — non-blocking
+    // We do this in background with generous delays so it doesn't 429
+    countUnrepliedSlow();
+
+  }catch(e){
+    log('Load failed: '+e.message,'warn');
+    toast('Load failed: '+e.message,'err');
+    document.getElementById('q-sub').textContent='Error — click Reload to try again';
+    document.getElementById('run-btn').disabled=false;
+    document.getElementById('opt-run-btn').disabled=false;
+  }
+}
+
+// Counts unreplied reviews in background — slowly and safely
+async function countUnrepliedSlow(){
+  let total=0;
+  const BATCH=5; // process 5 locations, then pause
+  for(let i=0; i<locations.length; i++){
+    const l=locations[i];
+    try{
+      const rd=await gmb(`https://mybusiness.googleapis.com/v4/accounts/${l.acctId}/locations/${l.locId}/reviews?pageSize=10`);
+      l.unreplied=(rd.reviews||[]).filter(r=>!r.reviewReply?.comment).length;
+      total+=l.unreplied;
+      document.getElementById('s-pending').textContent=total+'+';
+      document.getElementById('q-sub').textContent=`Counting reviews... ${i+1}/${locations.length}`;
+      renderQueue();
+    }catch(e){
+      // Skip quietly — will be counted properly during engine run
+      if(e.message.includes('429')){
+        log(`Review count paused (rate limit) — resuming in 15s...`,'warn');
+        await sleep(15000); // long pause on 429
+        i--; continue; // retry this location
+      }
+    }
+    // Extra pause every batch
+    if((i+1)%BATCH===0) await sleep(2000);
+  }
+  document.getElementById('s-pending').textContent=total;
+  document.getElementById('q-sub').textContent=`${locations.length} profiles · ${total} unreplied reviews`;
+  log(`✓ Review count complete: ${total} unreplied across ${locations.length} locations`,'success');
+  renderQueue();
 }
 
 // ═══════════════════════════════════════════════════════
