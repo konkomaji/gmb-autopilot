@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>GMB Profile Selector — GMB Autopilot</title>
+  <style>
+    body { font-family: system-ui, Arial; padding: 20px; background:#f6f8fb; color:#0b1220 }
+    .profile { padding: 8px; border: 1px solid #e2e8f0; margin-bottom:8px; background:#fff; border-radius:8px }
+    .controls { margin-top: 12px; }
+    button { padding: 8px 12px; border-radius:6px; border: none; background: #2563eb; color: #fff }
+    pre { background:#0b1220;color:#ffffff;padding:12px;border-radius:8px; overflow:auto }
+  </style>
+</head>
+<body>
+  <h1>Select a GMB Profile</h1>
+  <p>This is a lightweight selector UI that lists profiles (read from the running app's localStorage cache) and lets you run a local cleaning routine (client-side). This starter assumes you load profiles into localStorage under the key <code>gmb_profiles</code> (JSON array).</p>
+  <input id="search" placeholder="Search name, phone, address" style="width: 60%; padding:8px; margin-bottom:12px;" />
+  <div id="profiles"></div>
+
+  <div class="controls">
+    <button id="refresh">Refresh list</button>
+    <button id="clean" disabled>Start clean on selected profile</button>
+  </div>
+
+  <h3>Clean report</h3>
+  <pre id="report">No report yet.</pre>
+
+  <script>
+    // This script reads profiles from localStorage -> key 'gmb_profiles'
+    // It's a starter to find a profile, inspect it, and run a basic clean routine in the browser.
+
+    let selectedId = null;
+    function loadProfilesFromLocalStorage(){
+      try{
+        const raw = localStorage.getItem('gmb_profiles');
+        if(!raw) return [];
+        return JSON.parse(raw);
+      }catch(e){console.error('parse',e);return []}
+    }
+
+    function renderList(filter=''){
+      const list = loadProfilesFromLocalStorage().filter(p=>{
+        if(!filter) return true;
+        const s = (p.title||p.name||'') + ' ' + (p.phone||'') + ' ' + (p.address||'') + ' ' + (p.website||'');
+        return s.toLowerCase().includes(filter.toLowerCase());
+      });
+      const container = document.getElementById('profiles');
+      container.innerHTML = '';
+      if(list.length===0){ container.innerHTML = '<div class="profile">No profiles found in localStorage key "gmb_profiles".</div>'; return }
+      list.forEach((p,idx)=>{
+        const id = p.rawName || p.id || idx;
+        const div = document.createElement('div');
+        div.className='profile';
+        div.innerHTML = `<input type="radio" name="profile" value="${escapeHtml(id)}" id="p_${idx}"> <label for="p_${idx}"><strong>${escapeHtml(p.title||p.name||'Unnamed')}</strong> — ${escapeHtml(p.phone||'')} — ${escapeHtml((p.address&&p.address.locality)||p.city||'')}</label>`;
+        container.appendChild(div);
+        div.querySelector('input').addEventListener('change', ()=>{ selectedId = id; document.getElementById('clean').disabled = false; showProfileDetails(p); });
+      });
+    }
+
+    function showProfileDetails(p){
+      const rpt = document.getElementById('report');
+      rpt.textContent = JSON.stringify({profile:p}, null, 2);
+    }
+
+    function escapeHtml(s){ return (s||'').toString().replace(/[&<>",'`]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;","`":"&#96;"})[c]); }
+
+    document.getElementById('refresh').addEventListener('click', ()=>renderList(document.getElementById('search').value));
+    document.getElementById('search').addEventListener('input', (e)=>renderList(e.target.value));
+
+    document.getElementById('clean').addEventListener('click', ()=>{
+      if(!selectedId) return alert('Select a profile first');
+      const list = loadProfilesFromLocalStorage();
+      const p = list.find(x => (x.rawName||x.id||'')==selectedId);
+      if(!p) return alert('Profile not found');
+      const report = clientSideClean(p);
+      document.getElementById('report').textContent = JSON.stringify(report, null, 2);
+    });
+
+    function clientSideClean(profile){
+      // Conservative cleaning: normalize whitespace, remove control chars, basic phone normalization to digits
+      const before = JSON.parse(JSON.stringify(profile));
+      const cleaned = JSON.parse(JSON.stringify(profile));
+      function removeCtrl(s){ return (s||'').toString().replace(/[\x00-\x1F\x7F]/g,' ').replace(/\s{2,}/g,' ').trim(); }
+      if(cleaned.title) cleaned.title = removeCtrl(cleaned.title);
+      if(cleaned.name) cleaned.name = removeCtrl(cleaned.name);
+      if(cleaned.website) cleaned.website = removeCtrl(cleaned.website).replace(/^mailto:/i,'');
+      if(cleaned.phone) cleaned.phone = (cleaned.phone||'').toString().replace(/[^+0-9]/g,'');
+      if(cleaned.description) cleaned.description = removeCtrl(cleaned.description).slice(0,7500);
+      if(cleaned.categories && Array.isArray(cleaned.categories)) cleaned.categories = Array.from(new Set(cleaned.categories.map(c=>removeCtrl(c)))).filter(Boolean);
+
+      const changes = {};
+      Object.keys(cleaned).forEach(k=>{ if(JSON.stringify(before[k])!==JSON.stringify(cleaned[k])) changes[k] = {before:before[k], after:cleaned[k]}; });
+      return { id: selectedId, before, cleaned, changes };
+    }
+
+    // Initial render
+    renderList();
+  </script>
+</body>
+</html>
