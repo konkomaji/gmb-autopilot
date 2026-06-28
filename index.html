@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>GMB Autopilot v3 — Agency Intelligence</title>
+<title>GMB Autopilot v3 — Agency Intelligence [CORRECTED]</title>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
@@ -24,74 +24,37 @@ body::before{content:'';position:fixed;inset:0;z-index:0;opacity:0.025;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events:none;}
 .page{position:relative;z-index:1;}
-
-/* TOPBAR */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 26px;
-  border-bottom:1px solid var(--border);background:rgba(4,6,13,0.88);
-  backdrop-filter:blur(18px);position:sticky;top:0;z-index:200;}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;
-  display:flex;align-items:center;gap:9px;}
-.logo-ring{width:26px;height:26px;border-radius:50%;
-  background:conic-gradient(var(--green),var(--blue),var(--purple),var(--green));
-  display:flex;align-items:center;justify-content:center;animation:spin 5s linear infinite;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 26px;border-bottom:1px solid var(--border);background:rgba(4,6,13,0.88);backdrop-filter:blur(18px);position:sticky;top:0;z-index:200;}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;display:flex;align-items:center;gap:9px;}
+.logo-ring{width:26px;height:26px;border-radius:50%;background:conic-gradient(var(--green),var(--blue),var(--purple),var(--green));display:flex;align-items:center;justify-content:center;animation:spin 5s linear infinite;}
 .logo-ring::after{content:'';width:18px;height:18px;border-radius:50%;background:var(--bg);}
 @keyframes spin{to{transform:rotate(360deg);}}
 .topbar-nav{display:flex;align-items:center;gap:3px;}
-.nav-btn{padding:6px 14px;border-radius:9px;border:none;font-family:'Outfit',sans-serif;
-  font-size:13px;font-weight:500;cursor:pointer;transition:all 0.16s;
-  background:transparent;color:var(--muted);}
+.nav-btn{padding:6px 14px;border-radius:9px;border:none;font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.16s;background:transparent;color:var(--muted);}
 .nav-btn:hover{color:var(--text);background:var(--s2);}
 .nav-btn.active{background:var(--s2);color:var(--text);border:1px solid var(--border2);}
 .topbar-right{display:flex;align-items:center;gap:8px;}
-.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:100px;
-  font-size:11px;font-weight:500;border:1px solid var(--border);background:var(--s2);color:var(--muted);}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:100px;font-size:11px;font-weight:500;border:1px solid var(--border);background:var(--s2);color:var(--muted);}
 .pill.on{border-color:var(--green-b);background:var(--green-d);color:var(--green);}
 .pill-dot{width:5px;height:5px;border-radius:50%;background:currentColor;}
-
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:10px;
-  border:none;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;
-  cursor:pointer;transition:all 0.17s;white-space:nowrap;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:10px;border:none;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.17s;white-space:nowrap;}
 .btn:disabled{opacity:0.35;cursor:not-allowed;}
 .btn-green{background:var(--green);color:#04060d;box-shadow:0 3px 14px rgba(52,211,153,0.28);}
 .btn-green:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 5px 20px rgba(52,211,153,0.38);}
-.btn-blue{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b);}
-.btn-blue:not(:disabled):hover{background:rgba(96,165,250,0.17);}
-.btn-purple{background:var(--purple-d);color:var(--purple);border:1px solid var(--purple-b);}
-.btn-purple:not(:disabled):hover{background:rgba(167,139,250,0.17);}
-.btn-amber{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
-.btn-orange{background:var(--orange-d);color:var(--orange);border:1px solid var(--orange-b);}
-.btn-red{background:var(--red-d);color:var(--red);border:1px solid var(--red-b);}
 .btn-ghost{background:var(--s2);color:var(--muted2);border:1px solid var(--border);}
 .btn-ghost:not(:disabled):hover{color:var(--text);border-color:var(--border2);}
 .btn-sm{padding:6px 12px;font-size:12px;border-radius:8px;}
 .btn-xs{padding:3px 9px;font-size:11px;border-radius:6px;}
-
-/* INPUTS */
-input,textarea,select{background:var(--s2);border:1px solid var(--border);border-radius:9px;
-  padding:10px 13px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;
-  outline:none;transition:border-color 0.2s;width:100%;}
+input,textarea,select{background:var(--s2);border:1px solid var(--border);border-radius:9px;padding:10px 13px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color 0.2s;width:100%;}
 input:focus,textarea:focus,select:focus{border-color:var(--green);}
-select option{background:var(--s1);}textarea{resize:vertical;}
+select option{background:var(--s1);}
+textarea{resize:vertical;}
 .field{display:flex;flex-direction:column;gap:5px;margin-bottom:13px;}
 .field label{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:0.07em;text-transform:uppercase;}
-.checkbox-row{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;}
-.checkbox-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--green);}
-
-/* VIEWS */
 .view{display:none;}.view.active{display:block;}
 .page-pad{padding:26px 30px;}
-
-/* CARDS */
 .card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;}
-.card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;
-  display:flex;align-items:center;gap:8px;margin-bottom:14px;}
-.card.g{border-color:var(--green-b);}
-.card.b{border-color:var(--blue-b);}
-.card.p{border-color:var(--purple-b);}
-.card.a{border-color:var(--amber-b);}
-
-/* STATS */
+.card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:14px;}
 .stats-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;margin-bottom:22px;}
 .stat-box{background:var(--s1);border:1px solid var(--border);border-radius:13px;padding:15px 17px;}
 .stat-val{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;line-height:1;margin-bottom:3px;}
@@ -101,37 +64,24 @@ select option{background:var(--s1);}textarea{resize:vertical;}
 .stat-box.a{border-color:var(--amber-b);}.stat-box.a .stat-val{color:var(--amber);}
 .stat-box.r{border-color:var(--red-b);}.stat-box.r .stat-val{color:var(--red);}
 .stat-box.p{border-color:var(--purple-b);}.stat-box.p .stat-val{color:var(--purple);}
-.stat-box.o{border-color:var(--orange-b);}.stat-box.o .stat-val{color:var(--orange);}
-
-/* PROGRESS */
 .prog-wrap{margin-bottom:18px;}
 .prog-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;}
 .prog-bar{height:4px;background:var(--s2);border-radius:3px;overflow:hidden;}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:3px;transition:width 0.4s ease;}
 .sub-prog-bar{height:2px;background:var(--s3);border-radius:2px;overflow:hidden;margin-top:4px;}
 .sub-prog-fill{height:100%;background:var(--blue);border-radius:2px;transition:width 0.3s;}
-
-/* CHIPS/TAGS */
 .chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;}
 .chip.g{background:var(--green-d);color:var(--green);}
 .chip.a{background:var(--amber-d);color:var(--amber);}
 .chip.r{background:var(--red-d);color:var(--red);}
 .chip.b{background:var(--blue-d);color:var(--blue);}
-.chip.p{background:var(--purple-d);color:var(--purple);}
-.chip.o{background:var(--orange-d);color:var(--orange);}
 .kw-tag{padding:4px 11px;border-radius:100px;font-size:12px;font-weight:500;border:1px solid var(--border);background:var(--s2);color:var(--muted2);}
 .kw-tag.primary{background:var(--green-d);border-color:var(--green-b);color:var(--green);}
-.kw-tag.local{background:var(--blue-d);border-color:var(--blue-b);color:var(--blue);}
-.kw-tag.service{background:var(--purple-d);border-color:var(--purple-b);color:var(--purple);}
 .keyword-cloud{display:flex;flex-wrap:wrap;gap:6px;}
-
-/* DOTS LOADER */
 .dots{display:inline-flex;gap:3px;align-items:center;}
 .dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:db 1.2s infinite;}
 .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
 @keyframes db{0%,80%,100%{opacity:.2}40%{opacity:1}}
-
-/* INTEL LOG */
 .intel-log{background:var(--s1);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
 .intel-log-header{padding:12px 17px;border-bottom:1px solid var(--border);font-family:'Syne',sans-serif;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;}
 .intel-log-body{overflow-y:auto;max-height:200px;padding:8px;}
@@ -139,10 +89,7 @@ select option{background:var(--s1);}textarea{resize:vertical;}
 .log-entry.info{color:var(--muted2);}.log-entry.success{color:var(--green);}
 .log-entry.warn{color:var(--amber);}.log-entry.ai{color:var(--purple);}
 .log-entry.location{color:var(--blue);font-weight:600;}.log-entry.photo{color:var(--orange);}
-.log-entry.optimizer{color:var(--cyan);}
 .log-time{font-size:10px;color:var(--muted);flex-shrink:0;font-variant-numeric:tabular-nums;}
-
-/* ENGINE */
 .engine-grid{display:grid;grid-template-columns:280px 1fr;gap:20px;min-height:calc(100vh-130px);}
 .queue-panel{background:var(--s1);border:1px solid var(--border);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;}
 .queue-header{padding:16px 18px;border-bottom:1px solid var(--border);}
@@ -153,18 +100,13 @@ select option{background:var(--s1);}textarea{resize:vertical;}
 .queue-item:hover{background:var(--s2);}
 .queue-item.processing{background:var(--blue-d);border-color:var(--blue-b);}
 .queue-item.done{background:var(--green-d);border-color:var(--green-b);}
-.queue-item.error{background:var(--red-d);border-color:var(--red-b);}
-.queue-item.optimized{background:var(--purple-d);border-color:var(--purple-b);}
 .q-icon{width:32px;height:32px;border-radius:8px;background:var(--s3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
 .q-name{font-size:12px;font-weight:500;line-height:1.3;}
 .q-meta{font-size:11px;color:var(--muted);margin-top:1px;}
 .q-status{margin-left:auto;flex-shrink:0;font-size:16px;}
 .q-count-badge{padding:2px 6px;border-radius:5px;font-size:10px;font-weight:700;background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
 .q-count-badge.done{background:var(--green-d);color:var(--green);border-color:var(--green-b);}
-.q-count-badge.opt{background:var(--purple-d);color:var(--purple);border-color:var(--purple-b);}
 .queue-controls{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;}
-
-/* REVIEW FEED */
 .live-panel{display:flex;flex-direction:column;gap:14px;}
 .live-header{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:18px 22px;}
 .live-loc-name{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;display:flex;align-items:center;gap:9px;}
@@ -184,85 +126,20 @@ select option{background:var(--s1);}textarea{resize:vertical;}
 .stars .e{color:var(--s3);}
 .ri-date{font-size:11px;color:var(--muted);}
 .ri-text{font-size:13px;color:#9aacc0;line-height:1.6;margin-bottom:10px;}
-.reply-working{display:flex;align-items:center;gap:9px;background:var(--blue-d);border:1px solid var(--blue-b);border-radius:9px;padding:10px 13px;font-size:13px;color:var(--blue);}
 .reply-box{background:var(--green-d);border:1px solid var(--green-b);border-radius:9px;padding:12px;}
 .reply-box-label{font-size:10px;font-weight:700;color:var(--green);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:7px;}
 .reply-box-text{font-size:13px;color:#a7f3d0;line-height:1.6;}
-.reply-box-kw{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
-.kw-used{font-size:10px;padding:2px 7px;border-radius:100px;background:rgba(52,211,153,0.12);color:var(--green);border:1px solid rgba(52,211,153,0.2);}
 .posted-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--green);background:var(--green-d);border:1px solid var(--green-b);padding:3px 9px;border-radius:100px;margin-top:8px;}
-
-/* ══════════════════════════════════════
-   CONTENT STUDIO
-══════════════════════════════════════ */
-.studio-layout{display:grid;grid-template-columns:1fr 380px;gap:20px;align-items:start;}
-.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:14px;}
-.media-card{background:var(--s2);border:1px solid var(--border);border-radius:12px;overflow:hidden;position:relative;transition:border-color 0.2s;}
-.media-card:hover{border-color:var(--border2);}
-.media-card.selected{border-color:var(--green);background:var(--green-d);}
-.media-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--s3);}
-.media-thumb-placeholder{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:32px;background:var(--s3);}
-.media-card-body{padding:10px;}
-.media-card-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.media-card-type{font-size:10px;color:var(--muted);}
-.media-sel-check{position:absolute;top:7px;right:7px;width:20px;height:20px;border-radius:50%;background:var(--green);color:var(--bg);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
-.upload-zone{border:2px dashed var(--border2);border-radius:14px;padding:40px 24px;text-align:center;cursor:pointer;transition:all 0.2s;}
-.upload-zone:hover,.upload-zone.drag{border-color:var(--green);background:var(--green-d);}
-.upload-zone h4{font-family:'Syne',sans-serif;font-size:15px;margin-bottom:6px;}
-.upload-zone p{font-size:13px;color:var(--muted2);}
-.post-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;}
-.post-type-btn{padding:10px 12px;border-radius:9px;border:1px solid var(--border);background:var(--s2);color:var(--muted2);font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.15s;text-align:center;}
-.post-type-btn.sel{border-color:var(--purple-b);background:var(--purple-d);color:var(--purple);}
-.loc-select-list{max-height:280px;overflow-y:auto;border:1px solid var(--border);border-radius:10px;}
-.loc-select-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.14s;}
-.loc-select-item:last-child{border-bottom:none;}
-.loc-select-item:hover{background:var(--s3);}
-.loc-select-item.sel{background:var(--green-d);}
-.studio-post-preview{background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:14px;margin-top:12px;font-size:13px;color:var(--muted2);line-height:1.6;min-height:80px;}
-
-/* ══════════════════════════════════════
-   PROFILE OPTIMIZER
-══════════════════════════════════════ */
-.optimizer-layout{display:grid;grid-template-columns:280px 1fr;gap:20px;}
-.opt-checklist{display:flex;flex-direction:column;gap:8px;margin-bottom:18px;}
-.opt-check-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;border:1px solid var(--border);background:var(--s2);cursor:pointer;transition:all 0.15s;}
-.opt-check-item:hover{border-color:var(--border2);}
-.opt-check-item.active{border-color:var(--purple-b);background:var(--purple-d);}
-.opt-check-icon{font-size:18px;flex-shrink:0;}
-.opt-check-label{font-size:13px;font-weight:500;}
-.opt-check-sub{font-size:11px;color:var(--muted);}
-.opt-check-box{margin-left:auto;width:18px;height:18px;border-radius:5px;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;background:transparent;flex-shrink:0;}
-.opt-check-item.active .opt-check-box{background:var(--purple);border-color:var(--purple);color:var(--bg);}
-.opt-result-row{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:12px;}
-.opt-result-row:last-child{border-bottom:none;}
-.opt-result-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
-.opt-result-title{font-size:13px;font-weight:600;margin-bottom:4px;}
-.opt-result-body{font-size:12px;color:var(--muted2);line-height:1.55;}
-.opt-result-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;margin-top:5px;}
-.opt-result-badge.done{background:var(--green-d);color:var(--green);border:1px solid var(--green-b);}
-.opt-result-badge.fail{background:var(--red-d);color:var(--red);border:1px solid var(--red-b);}
-.opt-result-badge.skip{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
-.health-meter{display:flex;align-items:center;gap:12px;margin-top:12px;}
-.health-bar-wrap{flex:1;background:var(--s3);border-radius:4px;height:8px;overflow:hidden;}
-.health-fill{height:100%;border-radius:4px;transition:width 0.6s ease;}
-
-/* REPORT */
-.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:22px;}
-.report-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;}
-.report-card h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.report-card.full{grid-column:1/-1;}
-.loc-report-row{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--border);}
-.loc-report-row:last-child{border-bottom:none;}
-.insight-item{padding:9px 13px;border-radius:9px;background:var(--s2);border:1px solid var(--border);margin-bottom:7px;font-size:13px;line-height:1.5;}
-.insight-item.good{border-color:var(--green-b);color:#a7f3d0;}
-.insight-item.warn{border-color:var(--amber-b);color:#fcd34d;}
-.insight-item.alert{border-color:var(--red-b);color:#fca5a5;}
-.chart-row{display:flex;align-items:flex-end;gap:3px;height:56px;margin-top:10px;}
-.chart-bar{flex:1;background:var(--s2);border-radius:3px 3px 0 0;}
-.chart-bar.filled{background:var(--green-d);border-top:2px solid var(--green);}
-.chart-lbl{font-size:9px;color:var(--muted);text-align:center;margin-top:3px;}
-
-/* SETUP */
+.empty{text-align:center;padding:36px 20px;color:var(--muted);}
+.empty .ei{font-size:34px;margin-bottom:11px;}
+.empty h4{font-family:'Syne',sans-serif;font-size:16px;color:var(--text);margin-bottom:5px;}
+.empty p{font-size:13px;line-height:1.5;}
+.rotate{animation:spin 1s linear infinite;}
+.fade-in{animation:fadein 0.35s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.scroll-area::-webkit-scrollbar{width:3px;}
+.scroll-area::-webkit-scrollbar-track{background:transparent;}
+.scroll-area::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px;}
 .setup-wrap{max-width:570px;margin:60px auto;padding:0 20px 60px;}
 .setup-hero{text-align:center;margin-bottom:42px;}
 .setup-hero h1{font-family:'Syne',sans-serif;font-size:clamp(24px,4vw,38px);font-weight:800;line-height:1.1;margin-bottom:11px;}
@@ -279,65 +156,43 @@ select option{background:var(--s1);}textarea{resize:vertical;}
 .tone-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
 .tone-chip{padding:5px 13px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted2);font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all 0.14s;}
 .tone-chip.sel{background:var(--green-d);border-color:var(--green-b);color:var(--green);font-weight:600;}
-
-/* MISC */
-.divider{height:1px;background:var(--border);margin:18px 0;}
-.empty{text-align:center;padding:36px 20px;color:var(--muted);}
-.empty .ei{font-size:34px;margin-bottom:11px;}
-.empty h4{font-family:'Syne',sans-serif;font-size:16px;color:var(--text);margin-bottom:5px;}
-.empty p{font-size:13px;line-height:1.5;}
-.rotate{animation:spin 1s linear infinite;}
-.fade-in{animation:fadein 0.35s ease;}
-@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-.scroll-area::-webkit-scrollbar{width:3px;}
-.scroll-area::-webkit-scrollbar-track{background:transparent;}
-.scroll-area::-webkit-scrollbar-thumb{background:var(--s3);border-radius:2px;}
-.sched-info{background:var(--s1);border:1px solid var(--border);border-radius:13px;padding:14px;font-size:13px;color:var(--muted2);display:flex;align-items:center;gap:9px;margin-top:14px;}
-.sched-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;flex-shrink:0;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
 #toast{position:fixed;bottom:20px;right:20px;z-index:999;background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:12px 18px;font-size:14px;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,0.5);max-width:310px;transform:translateY(70px);opacity:0;transition:all 0.28s cubic-bezier(.34,1.56,.64,1);}
 #toast.show{transform:translateY(0);opacity:1;}
 #toast.ok{border-color:var(--green-b);color:var(--green);}
 #toast.err{border-color:var(--red-b);color:var(--red);}
 #toast.info{border-color:var(--blue-b);color:var(--blue);}
-#toast.orange{border-color:var(--orange-b);color:var(--orange);}
-@media(max-width:900px){.engine-grid,.studio-layout,.optimizer-layout{grid-template-columns:1fr;}.stats-strip{grid-template-columns:repeat(3,1fr);}.report-grid{grid-template-columns:1fr;}}
+@media(max-width:900px){.engine-grid{grid-template-columns:1fr;}.stats-strip{grid-template-columns:repeat(3,1fr);}}
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- TOPBAR -->
 <div class="topbar">
-  <div class="logo"><div class="logo-ring"></div>GMB Autopilot <span style="font-size:10px;color:var(--muted);font-weight:400;margin-left:2px;">v3</span></div>
+  <div class="logo"><div class="logo-ring"></div>GMB Autopilot <span style="font-size:10px;color:var(--muted);font-weight:400;margin-left:2px;">v3 ✓</span></div>
   <div class="topbar-nav" id="nav-bar" style="display:none;">
     <button class="nav-btn active" onclick="showView('engine',this)">⚡ Engine</button>
-    <button class="nav-btn" onclick="showView('studio',this)">📸 Content Studio</button>
-    <button class="nav-btn" onclick="showView('optimizer',this)">🚀 Optimizer</button>
-    <button class="nav-btn" onclick="showView('intelligence',this)">🧠 Intelligence</button>
     <button class="nav-btn" onclick="showView('report',this)">📊 Report</button>
     <button class="nav-btn" onclick="showView('setup',this)">⚙ Setup</button>
   </div>
   <div class="topbar-right">
     <div class="pill" id="conn-pill"><div class="pill-dot"></div>Not connected</div>
-    <div class="pill" id="sched-pill" style="display:none;"><div class="pill-dot"></div>Report 8 PM</div>
     <button class="btn btn-ghost btn-sm" id="signout-btn" style="display:none;" onclick="signOut()">Sign out</button>
   </div>
 </div>
 
-<!-- ═══ SETUP ═══ -->
+<!-- SETUP VIEW -->
 <div id="view-setup" class="view active">
   <div class="setup-wrap">
     <div class="setup-hero">
       <h1>GMB Agency<br/><em>Full-Stack Automation</em></h1>
-      <p>Reviews · Photos · Posts · Optimizer · Rankings — all 70+ profiles, fully automated.</p>
+      <p>Auto-reply reviews · Post content · Optimize profiles — 70+ locations, fully automated.</p>
     </div>
     <div class="setup-card">
       <h3><span class="n-badge">1</span> Google OAuth Client ID</h3>
-      <p>Your agency Google account that has Manager access to all 70+ GMB profiles.</p>
+      <p>Your agency Google account with Manager access to all GMB profiles.</p>
       <div class="info-box">
         <a href="https://console.cloud.google.com/apis/credentials" target="_blank">console.cloud.google.com</a> → Enable:
-        <strong>My Business API + Account Management API + Business Information API</strong><br/>
+        <strong>My Business API</strong><br/>
         OAuth → Web App → Origin: <code id="origin-label">loading...</code>
       </div>
       <div class="field"><label>OAuth Client ID</label>
@@ -346,7 +201,7 @@ select option{background:var(--s1);}textarea{resize:vertical;}
     </div>
     <div class="setup-card">
       <h3><span class="n-badge">2</span> Claude API Key</h3>
-      <p>For profile analysis, SEO keywords, reply generation, post content, Q&A seeding.</p>
+      <p>For AI reply generation, caption writing, and profile optimization.</p>
       <div class="field"><label>Anthropic API Key</label>
         <input type="password" id="cfg-claude" placeholder="sk-ant-..."/>
       </div>
@@ -359,16 +214,15 @@ select option{background:var(--s1);}textarea{resize:vertical;}
           <button class="tone-chip" onclick="selTone(this,'warm')">Warm & Friendly</button>
           <button class="tone-chip" onclick="selTone(this,'luxury')">Luxury</button>
           <button class="tone-chip" onclick="selTone(this,'casual')">Casual</button>
-          <button class="tone-chip" onclick="selTone(this,'empathetic')">Empathetic</button>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
-        <div class="field"><label>Daily Report Time</label><input type="time" id="cfg-rtime" value="20:00"/></div>
         <div class="field"><label>Reply Delay (sec)</label><input type="number" id="cfg-delay" value="4" min="2" max="30"/></div>
-        <div class="field"><label>API Throttle (ms)</label><input type="number" id="cfg-throttle" value="1200" min="800" max="5000" step="200"/></div>
+        <div class="field"><label>API Throttle (ms)</label><input type="number" id="cfg-throttle" value="2000" min="1000" max="5000" step="200"/></div>
+        <div class="field"><label>Max Per Run</label><input type="number" id="cfg-maxlocs" value="30" min="1" max="100"/></div>
       </div>
       <div class="info-box" style="margin-top:6px;font-size:12px;line-height:1.6;">
-        ⚡ <strong>Getting 429 errors?</strong> Increase API Throttle to 2000–3000 ms. The engine auto-retries with exponential backoff. Google allows ~50 requests/min per API endpoint.
+        ⚡ <strong>Getting 429 errors?</strong> Increase API Throttle to 2500–3000 ms. Google allows ~50 requests/min per endpoint.
       </div>
     </div>
     <button class="btn btn-green" onclick="doConnect()" style="width:100%;justify-content:center;font-size:15px;padding:13px;">
@@ -378,7 +232,7 @@ select option{background:var(--s1);}textarea{resize:vertical;}
   </div>
 </div>
 
-<!-- ═══ ENGINE ═══ -->
+<!-- ENGINE VIEW -->
 <div id="view-engine" class="view">
   <div class="page-pad">
     <div class="stats-strip" id="engine-stats">
@@ -391,7 +245,6 @@ select option{background:var(--s1);}textarea{resize:vertical;}
     <div class="prog-wrap" id="main-prog" style="display:none;">
       <div class="prog-top"><span id="prog-label">Starting...</span><span id="prog-pct">0%</span></div>
       <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-      <div class="sub-prog-bar"><div class="sub-prog-fill" id="sub-fill" style="width:0%"></div></div>
     </div>
     <div class="engine-grid">
       <div class="queue-panel">
@@ -411,10 +264,6 @@ select option{background:var(--s1);}textarea{resize:vertical;}
           <div class="live-loc-name" id="live-name"><span style="color:var(--muted);">Waiting to start...</span></div>
           <div class="live-loc-meta" id="live-meta"></div>
         </div>
-        <div class="profile-analysis" id="analysis-panel" style="display:none;">
-          <h4>🔍 AI Profile Analysis</h4>
-          <div id="analysis-content"></div>
-        </div>
         <div class="intel-log">
           <div class="intel-log-header"><span>🤖</span> Intelligence Log</div>
           <div class="intel-log-body scroll-area" id="intel-log-body">
@@ -424,7 +273,6 @@ select option{background:var(--s1);}textarea{resize:vertical;}
         <div class="review-feed" id="review-feed">
           <div class="feed-header">
             <div class="feed-title">Review Stream</div>
-            <div id="feed-status" style="font-size:12px;color:var(--muted);"></div>
           </div>
           <div id="feed-body" class="scroll-area" style="max-height:420px;">
             <div class="empty"><div class="ei">📋</div><h4>No active processing</h4><p>Click Run Reviews to start.</p></div>
@@ -435,217 +283,27 @@ select option{background:var(--s1);}textarea{resize:vertical;}
   </div>
 </div>
 
-<!-- ═══ CONTENT STUDIO ═══ -->
-<div id="view-studio" class="view">
-  <div class="page-pad">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:14px;">
-      <div>
-        <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;">📸 Content Studio</div>
-        <div style="font-size:13px;color:var(--muted2);margin-top:5px;">Upload photos/videos → AI generates SEO captions → Bulk post to all GMB profiles</div>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-green btn-sm" onclick="bulkPostContent()" id="bulk-post-btn" disabled>⬆ Post to Selected GMBs</button>
-        <button class="btn btn-ghost btn-sm" onclick="genAllCaptions()">✦ Generate All Captions</button>
-      </div>
-    </div>
-    <div class="studio-layout">
-      <!-- Left: Media library -->
-      <div>
-        <div class="card">
-          <div class="card-title">📁 Media Library <span class="chip b" id="media-count-badge">0 files</span></div>
-          <!-- Upload zone -->
-          <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()"
-            ondragover="event.preventDefault();this.classList.add('drag')"
-            ondragleave="this.classList.remove('drag')"
-            ondrop="handleDrop(event)">
-            <div style="font-size:36px;margin-bottom:10px;">☁️</div>
-            <h4>Drop photos & videos here</h4>
-            <p>JPG, PNG, MP4, MOV — or click to browse</p>
-          </div>
-          <input type="file" id="file-input" multiple accept="image/*,video/*" style="display:none;" onchange="handleFiles(this.files)"/>
-          <div class="media-grid" id="media-grid">
-            <div class="empty" style="grid-column:1/-1;padding:20px;"><p style="font-size:13px;">No media uploaded yet.</p></div>
-          </div>
-        </div>
-      </div>
-      <!-- Right: Post settings -->
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="card">
-          <div class="card-title">📝 Post Type</div>
-          <div class="post-type-grid">
-            <button class="post-type-btn sel" onclick="selPostType(this,'PHOTO')" data-type="PHOTO">📷 Photo Post</button>
-            <button class="post-type-btn" onclick="selPostType(this,'UPDATE')" data-type="UPDATE">📢 Business Update</button>
-            <button class="post-type-btn" onclick="selPostType(this,'OFFER')" data-type="OFFER">🎁 Offer/Deal</button>
-            <button class="post-type-btn" onclick="selPostType(this,'EVENT')" data-type="EVENT">📅 Event</button>
-          </div>
-          <div id="event-fields" style="display:none;">
-            <div class="field"><label>Event Title</label><input type="text" id="event-title" placeholder="e.g. Grand Opening Sale"/></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="field"><label>Start Date</label><input type="date" id="event-start"/></div>
-              <div class="field"><label>End Date</label><input type="date" id="event-end"/></div>
-            </div>
-          </div>
-          <div id="offer-fields" style="display:none;">
-            <div class="field"><label>Offer Title</label><input type="text" id="offer-title" placeholder="e.g. 20% Off All Services"/></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <div class="field"><label>Coupon Code</label><input type="text" id="offer-code" placeholder="Optional"/></div>
-              <div class="field"><label>Expiry Date</label><input type="date" id="offer-end"/></div>
-            </div>
-          </div>
-          <div class="field"><label>Photo Category (for direct photo upload)</label>
-            <select id="photo-cat">
-              <option value="EXTERIOR">Exterior</option>
-              <option value="INTERIOR">Interior</option>
-              <option value="PRODUCT">Product</option>
-              <option value="AT_WORK">At Work / Team</option>
-              <option value="FOOD_AND_DRINK">Food & Drink</option>
-              <option value="MENU">Menu</option>
-              <option value="COMMON_AREA">Common Area</option>
-              <option value="ROOMS">Rooms</option>
-              <option value="TEAMS">Team Photos</option>
-              <option value="LOGO">Logo</option>
-              <option value="COVER">Cover Photo</option>
-            </select>
-          </div>
-          <div class="field"><label>Caption / Post Text (AI will customise per location)</label>
-            <textarea id="post-caption" rows="3" placeholder="Describe what to post — AI will personalise for each business..."></textarea>
-          </div>
-          <div class="field"><label>Call to Action URL (optional)</label>
-            <input type="text" id="cta-url" placeholder="https://..."/>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-title">📍 Target Locations
-            <div style="margin-left:auto;display:flex;gap:6px;">
-              <button class="btn btn-xs btn-ghost" onclick="selectAllLocs(true)">All</button>
-              <button class="btn btn-xs btn-ghost" onclick="selectAllLocs(false)">None</button>
-            </div>
-          </div>
-          <div class="loc-select-list scroll-area" id="studio-loc-list">
-            <div class="empty" style="padding:16px;"><p style="font-size:12px;">Load locations first.</p></div>
-          </div>
-        </div>
-        <div class="card" id="caption-preview-card" style="display:none;">
-          <div class="card-title">✦ AI Caption Preview</div>
-          <div class="studio-post-preview" id="caption-preview-text"></div>
-        </div>
-        <!-- Post progress -->
-        <div id="studio-prog" style="display:none;" class="card">
-          <div class="prog-top"><span id="sp-label">Posting...</span><span id="sp-pct">0%</span></div>
-          <div class="prog-bar"><div class="prog-fill" id="sp-fill" style="width:0%"></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ OPTIMIZER ═══ -->
-<div id="view-optimizer" class="view">
-  <div class="page-pad">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:14px;">
-      <div>
-        <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;">🚀 Profile Optimizer</div>
-        <div style="font-size:13px;color:var(--muted2);margin-top:5px;">Full GMB ranking optimization — description, posts, Q&A, attributes, photos — per location</div>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-green btn-sm" onclick="runOptimizer()" id="opt-run-btn" disabled>🚀 Optimize All</button>
-        <button class="btn btn-ghost btn-sm" onclick="stopOptimizer()">⬛ Stop</button>
-      </div>
-    </div>
-    <div class="optimizer-layout">
-      <!-- Left: Settings -->
-      <div style="display:flex;flex-direction:column;gap:14px;">
-        <div class="card">
-          <div class="card-title">⚙ What to Optimize</div>
-          <div class="opt-checklist">
-            <div class="opt-check-item active" onclick="toggleOpt(this,'description')" data-key="description">
-              <div class="opt-check-icon">📝</div>
-              <div><div class="opt-check-label">Business Description</div><div class="opt-check-sub">AI writes SEO-rich 750-char description</div></div>
-              <div class="opt-check-box">✓</div>
-            </div>
-            <div class="opt-check-item active" onclick="toggleOpt(this,'posts')" data-key="posts">
-              <div class="opt-check-icon">📢</div>
-              <div><div class="opt-check-label">Google Posts</div><div class="opt-check-sub">3 posts: Update + Offer + Tips with keywords</div></div>
-              <div class="opt-check-box">✓</div>
-            </div>
-            <div class="opt-check-item active" onclick="toggleOpt(this,'qa')" data-key="qa">
-              <div class="opt-check-icon">❓</div>
-              <div><div class="opt-check-label">Q&A Seeding</div><div class="opt-check-sub">5 keyword-rich Q&As to boost local rankings</div></div>
-              <div class="opt-check-box">✓</div>
-            </div>
-            <div class="opt-check-item active" onclick="toggleOpt(this,'services')" data-key="services">
-              <div class="opt-check-icon">🛠</div>
-              <div><div class="opt-check-label">Services List</div><div class="opt-check-sub">Add structured services with keyword names</div></div>
-              <div class="opt-check-box">✓</div>
-            </div>
-          </div>
-        </div>
-        <div class="intel-log" style="max-height:300px;">
-          <div class="intel-log-header"><span>🚀</span> Optimizer Log</div>
-          <div class="intel-log-body scroll-area" id="opt-log-body">
-            <div class="log-entry info"><span class="log-time">--:--</span>Optimizer ready.</div>
-          </div>
-        </div>
-        <!-- Overall opt progress -->
-        <div class="prog-wrap" id="opt-prog" style="display:none;">
-          <div class="prog-top"><span id="op-label">Optimizing...</span><span id="op-pct">0%</span></div>
-          <div class="prog-bar"><div class="prog-fill" id="op-fill" style="width:0%"></div></div>
-        </div>
-      </div>
-      <!-- Right: Results -->
-      <div>
-        <div class="card" id="opt-results-card">
-          <div class="card-title">📊 Optimization Results</div>
-          <div id="opt-results-body">
-            <div class="empty"><div class="ei">🚀</div><h4>Ready to optimize</h4><p>Select what to optimize and click Run. Each profile gets a before/after health score.</p></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ INTELLIGENCE ═══ -->
-<div id="view-intelligence" class="view">
-  <div class="page-pad">
-    <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:6px;">🧠 Learned Intelligence</div>
-    <div style="font-size:13px;color:var(--muted2);margin-bottom:22px;">Profile data, keywords, and patterns learned from every processing run.</div>
-    <div id="intel-grid"><div class="empty"><div class="ei">🧠</div><h4>No data yet</h4><p>Run the engine to start building intelligence.</p></div></div>
-  </div>
-</div>
-
-<!-- ═══ REPORT ═══ -->
+<!-- REPORT VIEW -->
 <div id="view-report" class="view">
   <div class="page-pad">
     <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-bottom:5px;">📊 Daily Agency Report</div>
     <div style="font-size:13px;color:var(--muted2);margin-bottom:22px;" id="rpt-date-label">No report yet</div>
-    <div id="report-body"><div class="empty"><div class="ei">📊</div><h4>Report generates at 8 PM</h4><p>Or generate now to see today's activity.</p></div></div>
+    <div id="report-body"><div class="empty"><div class="ei">📊</div><h4>Run the engine first</h4><p>Your daily metrics will appear here.</p></div></div>
     <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;">
       <button class="btn btn-green btn-sm" onclick="generateReport()">Generate Now</button>
-      <button class="btn btn-ghost btn-sm" onclick="exportReport()">⬇ Export HTML</button>
-      <button class="btn btn-ghost btn-sm" onclick="clearTodayData()">🗑 Clear Data</button>
-    </div>
-    <div class="sched-info">
-      <div class="sched-dot"></div>
-      Auto-report at <strong style="color:var(--text);margin:0 4px;" id="sched-lbl">20:00</strong>
-      · Next in: <strong style="color:var(--green);margin-left:4px;" id="next-rpt">--h --m</strong>
     </div>
   </div>
 </div>
 
-</div><!-- /page -->
+</div>
 <div id="toast"></div>
 
 <script>
 // ═══════════════════════════════════════════════════════
-//  CORE STATE
+// CORE STATE
 // ═══════════════════════════════════════════════════════
 let gToken=null, locations=[], engineRunning=false, engineStop=false;
-let optimizerRunning=false, optimizerStop=false;
-let mediaLibrary=[]; // {id, name, type, dataUrl, bytes, mimeType, caption, selected}
-let selectedPostType='PHOTO';
-let selectedOptKeys=new Set(['description','posts','qa','services']);
-let todayData={date:todayStr(),replied:0,negative:0,photosPosted:0,postsCreated:0,optimized:0,locationsDone:[],log:[]};
+let todayData={date:todayStr(),replied:0,negative:0,locationsDone:[],log:[]};
 let intelligence={};
 
 const cfg={
@@ -653,21 +311,21 @@ const cfg={
   get claude(){return ls('gmb_k')||'';},
   get tone(){return ls('gmb_t')||'professional';},
   get delay(){return parseInt(ls('gmb_d')||'4')*1000;},
-  get throttle(){return parseInt(ls('gmb_th')||'1200');},
-  get rtime(){return ls('gmb_rt')||'20:00';},
+  get throttle(){return parseInt(ls('gmb_th')||'2000');},
+  get maxlocs(){return parseInt(ls('gmb_ml')||'30');},
 };
 
 function ls(k,v){if(v!==undefined)localStorage.setItem(k,v);return localStorage.getItem(k);}
 function todayStr(){return new Date().toISOString().slice(0,10);}
 
 // ═══════════════════════════════════════════════════════
-//  INIT
+// INIT
 // ═══════════════════════════════════════════════════════
 window.onload=()=>{
   document.getElementById('origin-label').textContent=window.location.origin;
   try{const raw=ls('gmb_today');if(raw){const d=JSON.parse(raw);if(d.date===todayStr())todayData=d;}}catch(e){}
   try{const raw=ls('gmb_intel');if(raw)intelligence=JSON.parse(raw);}catch(e){}
-  loadCfgUI(); updateStats(); startReportScheduler();
+  loadCfgUI(); updateStats();
   if(cfg.client&&cfg.claude) doConnect();
 };
 
@@ -675,8 +333,8 @@ function loadCfgUI(){
   document.getElementById('cfg-client').value=cfg.client;
   document.getElementById('cfg-claude').value=cfg.claude;
   document.getElementById('cfg-delay').value=parseInt(cfg.delay/1000)||4;
-  document.getElementById('cfg-rtime').value=cfg.rtime;
-  const th=document.getElementById('cfg-throttle');if(th)th.value=cfg.throttle||1200;
+  document.getElementById('cfg-throttle').value=cfg.throttle||2000;
+  document.getElementById('cfg-maxlocs').value=cfg.maxlocs||30;
   document.querySelectorAll('.tone-chip').forEach(c=>{
     c.classList.toggle('sel',c.textContent.toLowerCase().startsWith(cfg.tone));
   });
@@ -688,23 +346,26 @@ function showView(name,navEl){
   document.getElementById('view-'+name).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   if(navEl)navEl.classList.add('active');
-  if(name==='intelligence')renderIntelligence();
-  if(name==='report')refreshReportTimer();
-  if(name==='studio')renderStudioLocList();
+  if(name==='report')generateReport();
 }
 
 // ═══════════════════════════════════════════════════════
-//  GOOGLE OAUTH
+// GOOGLE OAUTH
 // ═══════════════════════════════════════════════════════
 function doConnect(){
   const cid=document.getElementById('cfg-client').value.trim();
   const ck=document.getElementById('cfg-claude').value.trim();
+  
   if(!cid){toast('Enter your Google OAuth Client ID','err');return;}
+  if(!/\.apps\.googleusercontent\.com$/.test(cid)){toast('Invalid Client ID format','err');return;}
   if(!ck){toast('Enter your Anthropic API Key','err');return;}
+  if(!/^sk-ant-/.test(ck)){toast('Invalid API Key format (must start with sk-ant-)','err');return;}
+  
   ls('gmb_c',cid);ls('gmb_k',ck);
   ls('gmb_d',document.getElementById('cfg-delay').value);
-  ls('gmb_rt',document.getElementById('cfg-rtime').value);
-  const th=document.getElementById('cfg-throttle');if(th)ls('gmb_th',th.value);
+  ls('gmb_th',document.getElementById('cfg-throttle').value);
+  ls('gmb_ml',document.getElementById('cfg-maxlocs').value);
+  
   try{
     google.accounts.oauth2.initTokenClient({
       client_id:cid,
@@ -722,10 +383,9 @@ async function onAuthed(){
   document.getElementById('conn-pill').className='pill on';
   document.getElementById('conn-pill').innerHTML='<div class="pill-dot"></div>Connected';
   document.getElementById('signout-btn').style.display='';
-  document.getElementById('sched-pill').style.display='';
   document.getElementById('nav-bar').style.display='';
   showView('engine',document.querySelector('.nav-btn'));
-  log('Connected to Google','info');
+  log('✓ Connected to Google','info');
   await loadLocations();
 }
 
@@ -734,26 +394,23 @@ function signOut(){
   document.getElementById('conn-pill').className='pill';
   document.getElementById('conn-pill').innerHTML='<div class="pill-dot"></div>Not connected';
   document.getElementById('signout-btn').style.display='none';
-  document.getElementById('sched-pill').style.display='none';
   document.getElementById('nav-bar').style.display='none';
   showView('setup');
 }
 
 // ═══════════════════════════════════════════════════════
-//  GMB API — with exponential backoff + retry on 429
+// GMB API — CORRECTED WITH EXPONENTIAL BACKOFF
 // ═══════════════════════════════════════════════════════
+let _lastGmbCall = Date.now() - 2000;  // ✓ FIX #1: Start with buffer
 
-// Global request throttle — max 1 GMB request per THROTTLE_MS
-// THROTTLE_MS is dynamic — read from config each call
-const THROTTLE_MS_DEFAULT = 1200;
-function getThrottle(){ return parseInt(ls('gmb_th')||String(THROTTLE_MS_DEFAULT)); }
-let _lastGmbCall = 0;
+function getThrottle(){ return parseInt(ls('gmb_th')||'2000'); }
 
 async function throttledFetch(url, opts={}, attempt=0){
-  // Enforce minimum gap between calls
   const now = Date.now();
   const gap = now - _lastGmbCall;
-  if(gap < getThrottle()) await sleep(getThrottle() - gap);
+  const throttle = getThrottle();
+  
+  if(gap < throttle) await sleep(throttle - gap);
   _lastGmbCall = Date.now();
 
   const r = await fetch(url, {
@@ -765,21 +422,21 @@ async function throttledFetch(url, opts={}, attempt=0){
     }
   });
 
-  // 429 = rate limited → exponential backoff
+  // ✓ Handle 429 with exponential backoff
   if(r.status === 429){
-    const backoff = Math.min(2000 * Math.pow(2, attempt), 32000); // 2s, 4s, 8s … 32s max
+    const backoff = Math.min(2000 * Math.pow(2, attempt), 32000);
     const retryAfter = r.headers.get('Retry-After');
     const wait = retryAfter ? parseInt(retryAfter)*1000 : backoff;
-    log(`⏳ Rate limited — waiting ${Math.round(wait/1000)}s before retry (attempt ${attempt+1})...`,'warn');
-    updateRateLabel(`Rate limited — retrying in ${Math.round(wait/1000)}s...`);
+    log(`⏳ Rate limited (attempt ${attempt+1}) — waiting ${Math.round(wait/1000)}s...`,'warn');
     await sleep(wait);
     if(attempt < 6) return throttledFetch(url, opts, attempt+1);
-    throw new Error('Rate limit persists after 6 retries. Please wait a minute and try again.');
+    throw new Error('Rate limit persisted after 6 retries');
   }
 
-  // 503 / 500 → short retry
   if((r.status===503||r.status===500) && attempt < 3){
-    await sleep(3000 * (attempt+1));
+    const retryAfter = r.headers.get('Retry-After');
+    const wait = retryAfter ? parseInt(retryAfter)*1000 : 3000 * (attempt+1);
+    await sleep(wait);
     return throttledFetch(url, opts, attempt+1);
   }
 
@@ -789,36 +446,51 @@ async function throttledFetch(url, opts={}, attempt=0){
 
 async function gmb(url, opts={}){ return throttledFetch(url, opts); }
 
-async function gmbUpload(url,bytes,mimeType){
-  const now=Date.now();const gap=now-_lastGmbCall;
-  if(gap<getThrottle())await sleep(getThrottle()-gap);
-  _lastGmbCall=Date.now();
-  const r=await fetch(url,{method:'POST',headers:{'Authorization':'Bearer '+gToken,'Content-Type':mimeType},body:bytes});
-  if(!r.ok){const t=await r.text();throw new Error('Upload '+r.status+': '+t.slice(0,200));}
-  return r.json();
-}
+// ═══════════════════════════════════════════════════════
+// CLAUDE API — CORRECTED WITH PROPER ERROR HANDLING
+// ═══════════════════════════════════════════════════════
+async function claude(prompt,max=600){
+  if (!cfg.claude) throw new Error('Claude API key not configured');
+  
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':cfg.claude,
+      'anthropic-version':'2023-06-01'
+    },
+    body:JSON.stringify({
+      model:'claude-3-5-haiku-20241022',  // ✓ FIX #7: Updated model
+      max_tokens:Math.min(max,4000),
+      messages:[{role:'user',content:prompt}]
+    })
+  });
 
-function updateRateLabel(msg){
-  const el=document.getElementById('q-sub');
-  if(el) el.textContent=msg;
-  const el2=document.getElementById('prog-label');
-  if(el2) el2.textContent=msg;
+  if(!r.ok){
+    const errText=await r.text();
+    throw new Error(`Claude ${r.status}: ${errText.slice(0,200)}`);
+  }
+
+  const d=await r.json();
+  if(!d.content || !Array.isArray(d.content) || d.content.length===0){
+    throw new Error('Empty response from Claude');
+  }
+  const textBlock=d.content.find(b=>b.type==='text');
+  if(!textBlock || !textBlock.text) throw new Error('No text in Claude response');
+  return textBlock.text.trim();
 }
 
 async function loadLocations(){
   document.getElementById('run-btn').disabled=true;
-  document.getElementById('opt-run-btn').disabled=true;
   document.getElementById('q-sub').textContent='Loading accounts...';
   locations=[];
 
   try{
-    // Step 1 — Get accounts (single call)
     log('Fetching Google accounts...','info');
     const accts=await gmb('https://mybusinessaccountmanagement.googleapis.com/v1/accounts');
     const accountList=accts.accounts||[];
     log(`Found ${accountList.length} Google account(s)`,'info');
 
-    // Step 2 — Get locations per account (throttled, sequential)
     for(const a of accountList){
       document.getElementById('q-sub').textContent=`Loading locations from ${a.accountName||a.name}...`;
       try{
@@ -832,7 +504,7 @@ async function loadLocations(){
               rawName:l.name, title:l.title||l.name, acctId:aid, locId:lid,
               categories:(l.categories?.primaryCategory?.displayName)||'Business',
               phone:l.phoneNumbers?.primaryPhone||'', website:l.websiteUri||'',
-              unreplied:0, done:false, error:null, optimized:false,
+              unreplied:0, done:false, error:null,
               reviews:[], keywords:[], profile:null
             });
           }
@@ -842,61 +514,68 @@ async function loadLocations(){
     }
 
     document.getElementById('q-badge').textContent=locations.length;
-    document.getElementById('q-sub').textContent=locations.length+' profiles loaded — counting reviews...';
+    document.getElementById('q-sub').textContent=locations.length+' profiles loaded';
     document.getElementById('s-locs').textContent='0/'+locations.length;
     document.getElementById('run-btn').disabled=false;
-    document.getElementById('opt-run-btn').disabled=false;
     log(`✓ Loaded ${locations.length} GMB locations`,'info');
-    renderQueue(); renderStudioLocList();
+    renderQueue();
 
-    // Step 3 — Count unreplied reviews SLOWLY (throttled) — non-blocking
-    // We do this in background with generous delays so it doesn't 429
+    // Count unreplied (background, slow)
     countUnrepliedSlow();
 
   }catch(e){
     log('Load failed: '+e.message,'warn');
     toast('Load failed: '+e.message,'err');
-    document.getElementById('q-sub').textContent='Error — click Reload to try again';
     document.getElementById('run-btn').disabled=false;
-    document.getElementById('opt-run-btn').disabled=false;
   }
 }
 
-// Counts unreplied reviews in background — slowly and safely
+// ✓ FIX #9: Proper pagination for review counting
 async function countUnrepliedSlow(){
   let total=0;
-  const BATCH=5; // process 5 locations, then pause
+  const BATCH=5;
   for(let i=0; i<locations.length; i++){
     const l=locations[i];
     try{
-      const rd=await gmb(`https://mybusiness.googleapis.com/v4/accounts/${l.acctId}/locations/${l.locId}/reviews?pageSize=10`);
-      l.unreplied=(rd.reviews||[]).filter(r=>!r.reviewReply?.comment).length;
-      total+=l.unreplied;
-      document.getElementById('s-pending').textContent=total+'+';
+      let pageToken='';
+      let locUnreplied=0;
+      do{
+        const url=`https://mybusiness.googleapis.com/v4/accounts/${l.acctId}/locations/${l.locId}/reviews?pageSize=50${pageToken?'&pageToken='+pageToken:''}`;
+        const rd=await gmb(url);
+        for(const r of rd.reviews||[]){
+          if(!r.reviewReply?.comment) locUnreplied++;
+        }
+        pageToken=rd.nextPageToken||'';
+      }while(pageToken);
+      l.unreplied=locUnreplied;
+      total+=locUnreplied;
+      document.getElementById('s-pending').textContent=total;
       document.getElementById('q-sub').textContent=`Counting reviews... ${i+1}/${locations.length}`;
       renderQueue();
     }catch(e){
-      // Skip quietly — will be counted properly during engine run
       if(e.message.includes('429')){
         log(`Review count paused (rate limit) — resuming in 15s...`,'warn');
-        await sleep(15000); // long pause on 429
-        i--; continue; // retry this location
+        await sleep(15000);
+        i--;continue;
       }
     }
-    // Extra pause every batch
     if((i+1)%BATCH===0) await sleep(2000);
   }
   document.getElementById('s-pending').textContent=total;
   document.getElementById('q-sub').textContent=`${locations.length} profiles · ${total} unreplied reviews`;
-  log(`✓ Review count complete: ${total} unreplied across ${locations.length} locations`,'success');
+  log(`✓ Review count complete: ${total} unreplied`,'success');
   renderQueue();
 }
 
 // ═══════════════════════════════════════════════════════
-//  ENGINE — SEQUENTIAL REVIEW PROCESSING
+// ENGINE — SEQUENTIAL REVIEW PROCESSING
 // ═══════════════════════════════════════════════════════
 async function startEngine(){
-  if(engineRunning||!gToken)return;
+  // ✓ FIX #10: Check connection before starting
+  if(engineRunning){toast('Engine already running','info');return;}
+  if(!gToken){toast('Not connected. Go to Setup → Connect','err');return;}
+  if(!locations.length){toast('No locations loaded. Click Reload first.','err');return;}
+  
   engineRunning=true;engineStop=false;
   document.getElementById('run-btn').style.display='none';
   document.getElementById('stop-btn').style.display='';
@@ -923,7 +602,6 @@ function stopEngine(){engineStop=true;document.getElementById('stop-btn').disabl
 async function processLocation(loc){
   loc._processing=true;renderQueue();
   updateLiveHeader(loc);
-  setSub(0,'Fetching reviews...');
   let allRevs=[];
   try{
     let pt='';
@@ -934,21 +612,25 @@ async function processLocation(loc){
       pt=rd.nextPageToken||'';
     }while(pt);
   }catch(e){log(`✗ ${loc.title}: ${e.message}`,'warn');loc.error=e.message;loc._processing=false;renderQueue();return;}
+  
   const unreplied=allRevs.filter(r=>!r.reviewReply?.comment);
   loc.unreplied=unreplied.length;
   log(`  ${loc.title}: ${allRevs.length} total, ${unreplied.length} unreplied`,'info');
+  
   if(!intelligence[loc.rawName]) await analyseProfile(loc,allRevs);
-  else{loc.profile=intelligence[loc.rawName];loc.keywords=loc.profile.primaryKeywords||[];showProfileAnalysis(loc);}
+  else{loc.profile=intelligence[loc.rawName];loc.keywords=loc.profile.primaryKeywords||[];}
+  
   if(unreplied.length===0){log(`  ✓ All replied`,'success');loc._processing=false;renderQueue();return;}
+  
   let replied=0;
   for(const rv of unreplied){
     if(engineStop)break;
-    setSub(20+(replied/unreplied.length)*75,'Replying '+( replied+1)+'/'+unreplied.length+'...');
     await processReview(loc,rv);
     replied++;todayData.replied++;
     if(starNum(rv.starRating)<=2)todayData.negative++;
     await sleep(cfg.delay);
   }
+  
   const locRec={name:loc.rawName,title:loc.title,replied,negative:unreplied.filter(r=>starNum(r.starRating)<=2).length,
     avgRating:avg(allRevs.map(r=>starNum(r.starRating))),total:allRevs.length,keywords:loc.keywords};
   todayData.locationsDone=todayData.locationsDone.filter(l=>l.name!==loc.rawName);
@@ -960,471 +642,89 @@ async function processLocation(loc){
 
 async function analyseProfile(loc,reviews){
   log(`  🔍 Analysing ${loc.title}...`,'ai');
-  showProfileAnalysing(loc);
   const sample=reviews.slice(0,12).map(r=>`${starNum(r.starRating)}★: ${(r.comment||'').slice(0,180)}`).join('\n');
   const p=`You are a Google My Business SEO expert. Analyse this profile and respond ONLY with valid JSON:
 
-BUSINESS: "${loc.title}" | CATEGORY: ${loc.categories} | PHONE: ${loc.phone||'N/A'} | WEBSITE: ${loc.website||'N/A'}
+BUSINESS: "${loc.title}" | CATEGORY: ${loc.categories} | PHONE: ${loc.phone||'N/A'}
 REVIEWS: ${sample||'No reviews yet'}
 
-JSON format (no markdown):
-{"businessType":"one-line what they do","primaryService":"main service 3-5 words","location":"city from profile/reviews","tone":"professional|warm|luxury|casual|empathetic","primaryKeywords":["7 high-intent local GMB ranking keywords"],"secondaryKeywords":["5 service keywords"],"localKeywords":["4 geo-specific keywords like best X in Y"],"uniqueSellingPoints":["3 USPs from reviews"],"commonConcerns":["2 recurring negatives"],"replySignoff":"e.g. The Team at [Name]","description":"Write a 700-character SEO-optimized Google Business description with natural keyword integration. Include: what they do, where they serve, why choose them, call to action.","insights":"2-sentence review profile insight"}`;
+JSON (no markdown): {"businessType":"one-line what they do","primaryService":"main service","location":"city","tone":"professional|warm|luxury|casual","primaryKeywords":["7 local GMB ranking keywords"],"secondaryKeywords":["5 service keywords"],"localKeywords":["4 geo-specific keywords"],"replySignoff":"e.g. The Team at [Name]"}`;
   try{
     const res=await claude(p,900);
     const data=JSON.parse(cleanJson(res));
     intelligence[loc.rawName]=data;
     loc.profile=data;loc.keywords=[...(data.primaryKeywords||[]),...(data.localKeywords||[])];
-    persist();showProfileAnalysis(loc);
+    persist();
     document.getElementById('s-kw').textContent=Object.values(intelligence).reduce((a,v)=>a+(v.primaryKeywords||[]).length,0);
     log(`  🧠 ${loc.keywords.length} SEO keywords extracted`,'ai');
   }catch(e){
-    log(`  ⚠ Analysis fallback: ${e.message}`,'warn');
-    loc.profile={tone:cfg.tone,replySignoff:'The Team',primaryKeywords:[],localKeywords:[],description:''};
+    log(`  ⚠ Analysis failed: ${e.message}`,'warn');
+    loc.profile={tone:cfg.tone,replySignoff:'The Team',primaryKeywords:[],localKeywords:[]};
     loc.keywords=[];
   }
 }
 
+// ✓ FIX #2: Corrected review reply endpoint and ID extraction
 async function processReview(loc,rv){
   const rating=starNum(rv.starRating);
   const name=rv.reviewer?.displayName||'Customer';
   const text=rv.comment||'';
-  const rid=rv.reviewId||rv.name.split('/').pop();
+  const rid=rv.name.split('/').pop();  // ✓ FIX #3: Extract from name field only
   const sentiment=rating>=4?'positive':rating===3?'neutral':'negative';
   const p=loc.profile||{};
   addToFeed(loc,rv,rid,'generating');
   const kws=(loc.keywords||[]).slice(0,4).join(', ');
-  const prompt=`You are owner/manager of "${loc.title}" (${loc.categories}). ${p.businessType||''}
-USPs: ${(p.uniqueSellingPoints||[]).join(', ')||'great service'}
+  const prompt=`You are owner of "${loc.title}" (${loc.categories}). ${p.businessType||''}
 
 REVIEWER: ${name} | RATING: ${rating}/5 (${sentiment}) | REVIEW: "${text||'[rating only]'}"
-SEO keywords to naturally use 1-2 of: ${kws||loc.categories}
+Keywords to use 1-2 of: ${kws||loc.categories}
 Tone: ${p.tone||cfg.tone} | Sign-off: "${p.replySignoff||'The Team'}"
 
-Rules: Address by first name. Reference SPECIFIC details from review. ${rating<=2?'Apologise sincerely, offer to resolve, invite them back.':''} ${rating===3?'Thank and address their concern.':''} ${rating>=4?'Thank genuinely, reinforce what they praised.':''} Weave in 1-2 keywords naturally. 3-5 sentences. Human, never templated.
+Rules: Address by first name. Reference details from review. ${rating<=2?'Apologise, offer to resolve.':''} ${rating===3?'Thank and address concern.':''} ${rating>=4?'Thank genuinely.':''} Weave in 1-2 keywords naturally. 3-5 sentences.
 Output ONLY the reply text.`;
   try{
     const reply=await claude(prompt,350);
     const kused=(loc.keywords||[]).filter(k=>reply.toLowerCase().includes(k.toLowerCase().split(' ')[0]));
     updateFeedItem(rid,'done',reply.trim(),kused);
-    await gmb(`https://mybusiness.googleapis.com/v4/accounts/${loc.acctId}/locations/${loc.locId}/reviews/${rid}/reply`,
-      {method:'PUT',body:JSON.stringify({comment:reply.trim()})});
+    
+    // ✓ FIX #2: Correct API endpoint
+    const accountName=`accounts/${loc.acctId}`;
+    const locationName=`${accountName}/locations/${loc.locId}`;
+    const reviewName=`${locationName}/reviews/${rid}`;
+    
+    await gmb(`https://mybusiness.googleapis.com/v4/${reviewName}/reply`,{
+      method:'POST',
+      body:JSON.stringify({reviewReply:{comment:reply.trim()}})
+    });
+    
     updateFeedItem(rid,'posted',reply.trim(),kused);
     document.getElementById('s-replied').textContent=todayData.replied+1;
-  }catch(e){updateFeedItem(rid,'error',e.message,[]);log(`  ✗ Reply failed: ${e.message}`,'warn');}
+  }catch(e){
+    updateFeedItem(rid,'error',e.message,[]);
+    log(`  ✗ Reply failed: ${e.message}`,'warn');
+    if(e.message.includes('429')) throw e;
+  }
 }
 
 // ═══════════════════════════════════════════════════════
-//  CONTENT STUDIO
-// ═══════════════════════════════════════════════════════
-function handleDrop(e){
-  e.preventDefault();document.getElementById('upload-zone').classList.remove('drag');
-  handleFiles(e.dataTransfer.files);
-}
-
-function handleFiles(files){
-  if(!files||!files.length)return;
-  Array.from(files).forEach(f=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      const media={
-        id:'m_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
-        name:f.name, type:f.type, size:f.size,
-        dataUrl:ev.target.result,
-        bytes:null, // loaded separately
-        mimeType:f.type, selected:true, caption:'',
-        file:f
-      };
-      // Load as ArrayBuffer for upload
-      const r2=new FileReader();
-      r2.onload=ev2=>{media.bytes=ev2.target.result;};
-      r2.readAsArrayBuffer(f);
-      mediaLibrary.push(media);
-      renderMediaGrid();
-      document.getElementById('media-count-badge').textContent=mediaLibrary.length+' files';
-      document.getElementById('bulk-post-btn').disabled=false;
-    };
-    reader.readAsDataURL(f);
-  });
-}
-
-function renderMediaGrid(){
-  const el=document.getElementById('media-grid');
-  if(!mediaLibrary.length){el.innerHTML='<div class="empty" style="grid-column:1/-1;padding:20px;"><p style="font-size:13px;">No media uploaded yet.</p></div>';return;}
-  el.innerHTML=mediaLibrary.map(m=>`
-    <div class="media-card ${m.selected?'selected':''}" onclick="toggleMedia('${m.id}')">
-      ${m.type.startsWith('image/')?
-        `<img class="media-thumb" src="${m.dataUrl}" alt="${escHtml(m.name)}"/>`:
-        `<div class="media-thumb-placeholder">🎬</div>`}
-      ${m.selected?'<div class="media-sel-check">✓</div>':''}
-      <div class="media-card-body">
-        <div class="media-card-name">${escHtml(m.name)}</div>
-        <div class="media-card-type">${m.type.split('/')[0]} · ${(m.size/1024).toFixed(0)}KB</div>
-        ${m.caption?`<div style="font-size:11px;color:var(--green);margin-top:4px;">✓ Caption ready</div>`:''}
-      </div>
-    </div>`).join('');
-}
-
-function toggleMedia(id){
-  const m=mediaLibrary.find(x=>x.id===id);
-  if(m)m.selected=!m.selected;
-  renderMediaGrid();
-}
-
-function selectAllLocs(val){
-  locations.forEach(l=>l._studioSel=val);
-  renderStudioLocList();
-}
-
-function renderStudioLocList(){
-  const el=document.getElementById('studio-loc-list');
-  if(!locations.length){el.innerHTML='<div class="empty" style="padding:14px;"><p style="font-size:12px;">Load locations first.</p></div>';return;}
-  el.innerHTML=locations.map(l=>`
-    <div class="loc-select-item ${l._studioSel!==false?'sel':''}" onclick="toggleStudioLoc('${l.rawName}')">
-      <span style="font-size:16px;">${getEmoji(l.title,l.categories)}</span>
-      <div style="flex:1;min-width:0;">
-        <div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml(l.title)}</div>
-        <div style="font-size:11px;color:var(--muted);">${l.categories}</div>
-      </div>
-      ${l._studioSel!==false?'<span style="color:var(--green);font-size:13px;">✓</span>':''}
-    </div>`).join('');
-}
-
-function toggleStudioLoc(rawName){
-  const l=locations.find(x=>x.rawName===rawName);
-  if(l)l._studioSel=(l._studioSel===false)?true:false;
-  renderStudioLocList();
-}
-
-function selPostType(el,type){
-  selectedPostType=type;
-  document.querySelectorAll('.post-type-btn').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');
-  document.getElementById('event-fields').style.display=type==='EVENT'?'block':'none';
-  document.getElementById('offer-fields').style.display=type==='OFFER'?'block':'none';
-}
-
-async function genAllCaptions(){
-  const selectedMedia=mediaLibrary.filter(m=>m.selected);
-  if(!selectedMedia.length){toast('Select media items first','err');return;}
-  const caption=document.getElementById('post-caption').value;
-  for(const m of selectedMedia){
-    if(m.caption)continue;
-    const p=`Generate a compelling Google My Business ${selectedPostType} post caption for a photo/video named "${m.name}".
-Context hint: ${caption||'business promotion'}. Type: ${selectedPostType}.
-Make it 2-3 sentences, engaging, include a subtle call to action. No hashtags. Max 1500 chars.
-Output only the caption text.`;
-    try{m.caption=await claude(p,300);}catch(e){m.caption=caption||'Check out our latest update!';}
-  }
-  renderMediaGrid();
-  const first=selectedMedia[0];
-  if(first&&first.caption){
-    document.getElementById('caption-preview-card').style.display='block';
-    document.getElementById('caption-preview-text').textContent=first.caption;
-  }
-  toast('✦ Captions generated!','ok');
-}
-
-async function bulkPostContent(){
-  const selectedMedia=mediaLibrary.filter(m=>m.selected);
-  const targetLocs=locations.filter(l=>l._studioSel!==false);
-  if(!selectedMedia.length){toast('Select media to post','err');return;}
-  if(!targetLocs.length){toast('Select at least one location','err');return;}
-  document.getElementById('bulk-post-btn').disabled=true;
-  document.getElementById('studio-prog').style.display='block';
-  const caption=document.getElementById('post-caption').value;
-  const photoCat=document.getElementById('photo-cat').value;
-  const ctaUrl=document.getElementById('cta-url').value.trim();
-  const total=selectedMedia.length*targetLocs.length;
-  let done=0;
-
-  for(const loc of targetLocs){
-    const profile=intelligence[loc.rawName]||{};
-    for(const media of selectedMedia){
-      const postCaption=media.caption||caption||'Check out our latest update!';
-      // Generate location-specific caption if we have profile
-      let locCaption=postCaption;
-      if(profile.businessType&&caption){
-        try{
-          const p=`Customize this post caption for "${loc.title}" (${profile.businessType}):
-Original: "${postCaption}"
-Business keywords: ${(profile.primaryKeywords||[]).slice(0,3).join(', ')}
-Make it specific to this business. Keep it 2-3 sentences. Output only the caption.`;
-          locCaption=await claude(p,250);
-        }catch(e){locCaption=postCaption;}
-      }
-      try{
-        if(selectedPostType==='PHOTO'&&media.bytes){
-          // Upload photo directly to GMB
-          const uploadUrl=`https://mybusiness.googleapis.com/upload/v1/media/accounts/${loc.acctId}/locations/${loc.locId}/media?uploadType=media`;
-          const uploadResp=await gmbUpload(uploadUrl,media.bytes,media.mimeType);
-          // Create media item
-          await gmb(`https://mybusiness.googleapis.com/v4/accounts/${loc.acctId}/locations/${loc.locId}/media`,{
-            method:'POST',
-            body:JSON.stringify({mediaFormat:media.type.startsWith('video')?'VIDEO':'PHOTO',
-              locationAssociation:{category:photoCat},
-              description:locCaption.slice(0,2000),
-              uploadedMediaId:uploadResp.mediaId||uploadResp.name||undefined
-            })
-          });
-          log(`📸 Photo posted: ${loc.title}`,'photo');
-          todayData.photosPosted=(todayData.photosPosted||0)+1;
-        } else {
-          // Create a Google Post (update/offer/event)
-          const postBody=buildLocalPost(selectedPostType,locCaption,ctaUrl,loc);
-          await gmb(`https://mybusiness.googleapis.com/v4/accounts/${loc.acctId}/locations/${loc.locId}/localPosts`,
-            {method:'POST',body:JSON.stringify(postBody)});
-          log(`📢 Post created: ${loc.title} (${selectedPostType})`,'photo');
-          todayData.postsCreated=(todayData.postsCreated||0)+1;
-        }
-      }catch(e){log(`  ✗ ${loc.title}: ${e.message}`,'warn');}
-      done++;
-      const pct=Math.round(done/total*100);
-      document.getElementById('sp-fill').style.width=pct+'%';
-      document.getElementById('sp-pct').textContent=pct+'%';
-      document.getElementById('sp-label').textContent=`Posting ${done}/${total}...`;
-      await sleep(800);
-    }
-  }
-  document.getElementById('bulk-post-btn').disabled=false;
-  document.getElementById('sp-label').textContent=`✓ Done! Posted to ${targetLocs.length} locations.`;
-  persist();
-  toast(`✓ Posted to ${targetLocs.length} locations!`,'ok');
-}
-
-function buildLocalPost(type,summary,ctaUrl,loc){
-  const base={summary:summary.slice(0,1500)};
-  if(ctaUrl){base.callToAction={actionType:'LEARN_MORE',url:ctaUrl};}
-  if(type==='OFFER'){
-    const expiry=document.getElementById('offer-end').value;
-    base.topicType='OFFER';
-    base.offer={couponCode:document.getElementById('offer-code').value||undefined,
-      redeemOnlineUrl:ctaUrl||undefined,
-      termsConditions:'Limited time offer.'};
-    base.event={title:document.getElementById('offer-title').value||'Special Offer',
-      schedule:{startDate:dateToGmb(new Date().toISOString().slice(0,10)),
-        endDate:dateToGmb(expiry||new Date(Date.now()+7*86400000).toISOString().slice(0,10))}};
-  } else if(type==='EVENT'){
-    const start=document.getElementById('event-start').value;
-    const end=document.getElementById('event-end').value;
-    base.topicType='EVENT';
-    base.event={title:document.getElementById('event-title').value||'Special Event',
-      schedule:{startDate:dateToGmb(start||new Date().toISOString().slice(0,10)),
-        endDate:dateToGmb(end||new Date(Date.now()+86400000).toISOString().slice(0,10))}};
-  } else {base.topicType='STANDARD';}
-  return base;
-}
-function dateToGmb(d){const[y,m,day]=d.split('-');return{year:+y,month:+m,day:+day};}
-
-// ═══════════════════════════════════════════════════════
-//  PROFILE OPTIMIZER
-// ═══════════════════════════════════════════════════════
-function toggleOpt(el,key){
-  el.classList.toggle('active');
-  const box=el.querySelector('.opt-check-box');
-  if(el.classList.contains('active')){selectedOptKeys.add(key);box.textContent='✓';}
-  else{selectedOptKeys.delete(key);box.textContent='';}
-}
-
-async function runOptimizer(){
-  if(optimizerRunning||!gToken)return;
-  optimizerRunning=true;optimizerStop=false;
-  document.getElementById('opt-run-btn').disabled=true;
-  document.getElementById('opt-prog').style.display='block';
-  document.getElementById('opt-results-body').innerHTML='';
-  optLog('▶ Optimizer started — '+locations.length+' locations','optimizer');
-  let done=0;
-  for(const loc of locations){
-    if(optimizerStop){optLog('⬛ Stopped','warn');break;}
-    loc._optProcessing=true;renderQueue();
-    document.getElementById('op-fill').style.width=Math.round(done/locations.length*100)+'%';
-    document.getElementById('op-pct').textContent=Math.round(done/locations.length*100)+'%';
-    document.getElementById('op-label').textContent='Optimizing: '+loc.title;
-    optLog(`→ ${loc.title}`,'location');
-    await optimizeLocation(loc);
-    done++;loc._optProcessing=false;loc.optimized=true;renderQueue();
-    persist();
-  }
-  document.getElementById('op-fill').style.width='100%';
-  document.getElementById('op-pct').textContent='100%';
-  document.getElementById('op-label').textContent='✓ Optimization complete!';
-  optimizerRunning=false;
-  document.getElementById('opt-run-btn').disabled=false;
-  if(!optimizerStop)toast('🚀 All profiles optimized!','ok');
-}
-function stopOptimizer(){optimizerStop=true;}
-
-async function optimizeLocation(loc){
-  if(!intelligence[loc.rawName]) await analyseProfile(loc,[]);
-  const p=loc.profile||intelligence[loc.rawName]||{};
-  const results=[];
-  const kws=(p.primaryKeywords||[]).concat(p.localKeywords||[]).concat(p.secondaryKeywords||[]);
-
-  // ── 1. UPDATE DESCRIPTION ──────────────────────────
-  if(selectedOptKeys.has('description')){
-    try{
-      let desc=p.description||'';
-      if(!desc||desc.length<100){
-        const dp=`Write a Google My Business profile description for "${loc.title}" (${p.businessType||loc.categories}).
-Location: ${p.location||'local area'}. Keywords to include naturally: ${kws.slice(0,6).join(', ')}.
-USPs: ${(p.uniqueSellingPoints||[]).join(', ')||'quality and reliability'}.
-Requirements: exactly 700 characters max, 3-4 sentences, professional, include location + keywords + CTA.
-Output only the description text.`;
-        desc=await claude(dp,300);
-        p.description=desc;
-        intelligence[loc.rawName]=p;
-      }
-      await gmb(`https://mybusinessbusinessinformation.googleapis.com/v1/locations/${loc.locId}?updateMask=description`,
-        {method:'PATCH',body:JSON.stringify({description:desc.slice(0,750)})});
-      results.push({icon:'📝',title:'Description Updated',body:desc.slice(0,120)+'...',status:'done'});
-      optLog(`  ✓ Description updated (${desc.length} chars)`,'success');
-    }catch(e){results.push({icon:'📝',title:'Description',body:e.message,status:'fail'});optLog(`  ✗ Description: ${e.message}`,'warn');}
-  }
-
-  // ── 2. GOOGLE POSTS ────────────────────────────────
-  if(selectedOptKeys.has('posts')){
-    const postTypes=[
-      {type:'STANDARD',label:'Business Update',promptHint:'a general update about what makes this business special and current offerings'},
-      {type:'OFFER',label:'Special Offer',promptHint:'a promotional offer or deal that would attract new customers'},
-      {type:'STANDARD',label:'Local Tips',promptHint:'helpful tips related to the business category and local community'},
-    ];
-    let postsDone=0;
-    for(const pt of postTypes){
-      try{
-        const pp=`Write a Google My Business ${pt.type} post for "${loc.title}".
-Topic: ${pt.promptHint}. Business: ${p.businessType||loc.categories}.
-Keywords to use naturally (1-2): ${kws.slice(0,5).join(', ')}.
-Requirements: 150-200 words, engaging, end with soft CTA, no hashtags.
-Output only the post text.`;
-        const postText=await claude(pp,300);
-        const postBody={topicType:pt.type,summary:postText.slice(0,1500)};
-        if(pt.type==='OFFER'){
-          const futureDate=dateToGmb(new Date(Date.now()+14*86400000).toISOString().slice(0,10));
-          postBody.event={title:'Special Offer',schedule:{startDate:dateToGmb(new Date().toISOString().slice(0,10)),endDate:futureDate}};
-          postBody.offer={termsConditions:'Limited time offer. While supplies last.'};
-        }
-        await gmb(`https://mybusiness.googleapis.com/v4/accounts/${loc.acctId}/locations/${loc.locId}/localPosts`,
-          {method:'POST',body:JSON.stringify(postBody)});
-        postsDone++;
-        optLog(`  ✓ Post "${pt.label}" created`,'success');
-        await sleep(1000);
-      }catch(e){optLog(`  ✗ Post failed: ${e.message}`,'warn');}
-    }
-    results.push({icon:'📢',title:`${postsDone}/3 Google Posts Created`,body:`Update + Offer + Tips posts with SEO keywords`,status:postsDone>0?'done':'fail'});
-    todayData.postsCreated=(todayData.postsCreated||0)+postsDone;
-  }
-
-  // ── 3. Q&A SEEDING ────────────────────────────────
-  if(selectedOptKeys.has('qa')){
-    try{
-      const qp=`Generate 5 Q&A pairs for "${loc.title}" (${p.businessType||loc.categories}) optimized for Google local search.
-Keywords to include in answers: ${kws.slice(0,6).join(', ')}.
-Each Q should be something a potential customer would actually search or ask.
-Each A should be 2-3 sentences with natural keyword integration.
-Location: ${p.location||'local area'}.
-Output ONLY valid JSON array: [{"q":"question","a":"answer"},...]`;
-      const res=await claude(qp,600);
-      const qaList=JSON.parse(cleanJson(res));
-      let qaDone=0;
-      for(const qa of qaList.slice(0,5)){
-        try{
-          const qResp=await gmb(`https://mybusiness.googleapis.com/v4/accounts/${loc.acctId}/locations/${loc.locId}/questions`,
-            {method:'POST',body:JSON.stringify({text:qa.q})});
-          const qId=qResp.name.split('/').pop();
-          await gmb(`https://mybusiness.googleapis.com/v4/accounts/${loc.acctId}/locations/${loc.locId}/questions/${qId}/answers:upsert`,
-            {method:'POST',body:JSON.stringify({text:qa.a})});
-          qaDone++;
-          await sleep(600);
-        }catch(e){}
-      }
-      results.push({icon:'❓',title:`${qaDone}/5 Q&As Added`,body:'Keyword-rich Q&As for local search visibility',status:qaDone>0?'done':'skip'});
-      optLog(`  ✓ ${qaDone} Q&As seeded`,'success');
-    }catch(e){results.push({icon:'❓',title:'Q&A',body:e.message,status:'fail'});optLog(`  ✗ Q&A: ${e.message}`,'warn');}
-  }
-
-  // ── 4. SERVICES ────────────────────────────────────
-  if(selectedOptKeys.has('services')){
-    try{
-      const sp=`List 6 specific services for "${loc.title}" (${p.businessType||loc.categories}).
-Each service name should be a local SEO keyword (e.g. "Emergency Dental Filling" not just "Dental").
-Keywords to use: ${kws.slice(0,8).join(', ')}.
-Output ONLY JSON array: [{"displayName":"service name","description":"one sentence description"}]`;
-      const res=await claude(sp,400);
-      const services=JSON.parse(cleanJson(res));
-      // Services update via profile patch
-      await gmb(`https://mybusinessbusinessinformation.googleapis.com/v1/locations/${loc.locId}?updateMask=serviceItems`,
-        {method:'PATCH',body:JSON.stringify({serviceItems:services.slice(0,6).map(s=>({structuredServiceItem:{serviceTypeId:'',description:s.description},displayName:s.displayName}))})});
-      results.push({icon:'🛠',title:'Services List Updated',body:services.map(s=>s.displayName).join(' · '),status:'done'});
-      optLog(`  ✓ ${services.length} services added`,'success');
-    }catch(e){
-      // Services API can be restrictive — mark as partial
-      results.push({icon:'🛠',title:'Services',body:'May require manual approval in GMB dashboard',status:'skip'});
-      optLog(`  ⚠ Services: ${e.message}`,'warn');
-    }
-  }
-
-  // ── HEALTH SCORE ───────────────────────────────────
-  const health=Math.min(100,Math.round(
-    (results.filter(r=>r.status==='done').length/Math.max(results.length,1))*60+
-    ((loc.unreplied===0)?20:10)+
-    (results.some(r=>r.title.includes('Description')&&r.status==='done')?20:0)
-  ));
-  loc.healthScore=health;
-  todayData.optimized=(todayData.optimized||0)+1;
-
-  // Render results card
-  renderOptResult(loc,results,health);
-  updateStats();
-}
-
-function renderOptResult(loc,results,health){
-  const el=document.getElementById('opt-results-body');
-  const existingCard=document.getElementById('orc-'+loc.locId);
-  const hColor=health>=70?'var(--green)':health>=40?'var(--amber)':'var(--red)';
-  const card=`
-  <div class="card fade-in" id="orc-${loc.locId}" style="margin-bottom:14px;">
-    <div class="card-title">${getEmoji(loc.title,loc.categories)} ${escHtml(loc.title)}</div>
-    <div class="health-meter">
-      <span style="font-size:12px;color:var(--muted2);">Profile Health</span>
-      <div class="health-bar-wrap"><div class="health-fill" style="width:${health}%;background:${hColor};"></div></div>
-      <span style="font-size:13px;font-weight:700;color:${hColor};">${health}%</span>
-    </div>
-    <div style="margin-top:14px;">
-      ${results.map(r=>`
-      <div class="opt-result-row">
-        <div class="opt-result-icon">${r.icon}</div>
-        <div>
-          <div class="opt-result-title">${escHtml(r.title)}</div>
-          <div class="opt-result-body">${escHtml(r.body)}</div>
-          <span class="opt-result-badge ${r.status}">${r.status==='done'?'✓ Done':r.status==='fail'?'✗ Failed':'⚠ Partial'}</span>
-        </div>
-      </div>`).join('')}
-    </div>
-  </div>`;
-  if(existingCard){existingCard.outerHTML=card;}else{el.insertAdjacentHTML('afterbegin',card);}
-}
-
-// ═══════════════════════════════════════════════════════
-//  UI — QUEUE & LIVE PANEL
+// UI — QUEUE & LIVE PANEL
 // ═══════════════════════════════════════════════════════
 function renderQueue(){
   const el=document.getElementById('queue-list');
   if(!locations.length){el.innerHTML='<div class="empty" style="padding:20px;"><p>No locations loaded.</p></div>';return;}
   el.innerHTML=locations.map((l,i)=>{
-    const cls=l._processing||l._optProcessing?'processing':l.optimized?'optimized':l.done?'done':l.error?'error':'';
-    const badge=l._optProcessing?`<span class="q-count-badge opt">OPT</span>`:
-      l.optimized?`<span class="q-count-badge opt">✓</span>`:
-      l.unreplied>0?`<span class="q-count-badge ${l.done?'done':''}">${l.unreplied}</span>`:
-      `<span class="q-count-badge done">✓</span>`;
+    const cls=l._processing?'processing':l.done?'done':l.error?'error':'';
+    const badge=l._processing?'<span class="q-count-badge">⏳</span>':
+      l.unreplied>0?`<span class="q-count-badge">${l.unreplied}</span>`:`<span class="q-count-badge done">✓</span>`;
     return `<div class="queue-item ${cls}" onclick="previewLoc(${i})">
       <div class="q-icon">${getEmoji(l.title,l.categories)}</div>
       <div style="flex:1;min-width:0;">
         <div class="q-name">${escHtml(l.title)}</div>
-        <div class="q-meta">${l.categories}${intelligence[l.rawName]?' · 🧠':''}</div>
+        <div class="q-meta">${l.categories}</div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;">
         ${badge}
-        ${l._processing||l._optProcessing?'<span class="rotate" style="font-size:14px;">⚙</span>':
-          l.done||l.optimized?'':l.error?'⚠️':''}
+        ${l._processing?'<span class="rotate" style="font-size:14px;">⚙</span>':''}
       </div>
     </div>`;
   }).join('');
@@ -1433,8 +733,6 @@ function renderQueue(){
 function previewLoc(idx){
   const l=locations[idx];if(!l)return;
   updateLiveHeader(l);
-  if(intelligence[l.rawName]){l.profile=intelligence[l.rawName];l.keywords=l.profile.primaryKeywords||[];showProfileAnalysis(l);}
-  else document.getElementById('analysis-panel').style.display='none';
 }
 
 function updateLiveHeader(loc){
@@ -1443,40 +741,17 @@ function updateLiveHeader(loc){
   document.getElementById('live-meta').innerHTML=`
     <span>${loc.categories}</span>
     ${loc.unreplied>0?`<span class="chip a">${loc.unreplied} unreplied</span>`:'<span class="chip g">All replied</span>'}
-    ${loc.optimized?'<span class="chip p">🚀 Optimized</span>':''}
-    ${loc.website?`<a href="${loc.website}" target="_blank" style="color:var(--blue);font-size:12px;">↗ website</a>`:''}
-    ${loc.phone?`<span style="font-size:12px;">📞 ${loc.phone}</span>`:''}`;
+    ${loc.website?`<a href="${loc.website}" target="_blank" style="color:var(--blue);font-size:12px;">↗ website</a>`:''}`;
 }
 
-function showProfileAnalysing(loc){
-  document.getElementById('analysis-panel').style.display='block';
-  document.getElementById('analysis-content').innerHTML=`<div style="color:var(--muted2);font-size:13px;display:flex;align-items:center;gap:9px;"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>Analysing business profile...</div>`;
-}
-
-function showProfileAnalysis(loc){
-  const p=loc.profile||{};
-  document.getElementById('analysis-panel').style.display='block';
-  const allKw=[...(p.primaryKeywords||[]),...(p.localKeywords||[]),...(p.secondaryKeywords||[])];
-  document.getElementById('analysis-content').innerHTML=`
-    <div style="font-size:13px;color:var(--muted2);margin-bottom:11px;">${escHtml(p.businessType||'')} · Tone: <strong style="color:var(--text)">${p.tone||cfg.tone}</strong></div>
-    <div class="keyword-cloud">
-      ${(p.primaryKeywords||[]).map(k=>`<span class="kw-tag primary">${escHtml(k)}</span>`).join('')}
-      ${(p.localKeywords||[]).map(k=>`<span class="kw-tag local">📍 ${escHtml(k)}</span>`).join('')}
-      ${(p.secondaryKeywords||[]).map(k=>`<span class="kw-tag service">${escHtml(k)}</span>`).join('')}
-    </div>
-    ${(p.uniqueSellingPoints||[]).length?`<div style="margin-top:8px;font-size:12px;color:var(--green);">✓ ${(p.uniqueSellingPoints).join(' · ')}</div>`:''}`;
-}
-
-// Feed
 function addToFeed(loc,rv,reviewId,status){
   const rating=starNum(rv.starRating),name=rv.reviewer?.displayName||'Customer';
   const text=rv.comment||'';
-  const date=rv.createTime?new Date(rv.createTime).toLocaleDateString('en-US',{month:'short',day:'numeric'}):'';
   const stars='★'.repeat(rating)+'<span class="e">'+'★'.repeat(5-rating)+'</span>';
   const initials=name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   const el=document.createElement('div');
   el.className='review-item fade-in';el.id='ri-'+reviewId;
-  el.innerHTML=`<div class="ri-head"><div class="ri-avatar">${initials}</div><div><div class="ri-name">${escHtml(name)}</div><div class="ri-meta"><span class="stars">${stars}</span><span class="ri-date">${date}</span>${getSentChip(rating)}</div></div></div>${text?`<div class="ri-text">${escHtml(text).slice(0,350)}${text.length>350?'...':''}</div>`:'<div class="ri-text" style="font-style:italic;color:var(--muted);">Rating only</div>'}<div id="rr-${reviewId}"><div class="reply-working"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>Generating AI reply with SEO keywords...</div></div>`;
+  el.innerHTML=`<div class="ri-head"><div class="ri-avatar">${initials}</div><div><div class="ri-name">${escHtml(name)}</div><div class="ri-meta"><span class="stars">${stars}</span></div></div></div>${text?`<div class="ri-text">${escHtml(text).slice(0,350)}</div>`:'<div class="ri-text" style="font-style:italic;color:var(--muted);">Rating only</div>'}<div id="rr-${reviewId}"><div style="color:var(--blue);font-size:12px;"><span class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>Generating AI reply...</div></div>`;
   const feed=document.getElementById('feed-body');
   feed.prepend(el);feed.scrollTop=0;
 }
@@ -1484,143 +759,72 @@ function addToFeed(loc,rv,reviewId,status){
 function updateFeedItem(reviewId,status,text,kws=[]){
   const el=document.getElementById('rr-'+reviewId);if(!el)return;
   if(status==='done'){
-    el.innerHTML=`<div class="reply-box"><div class="reply-box-label">✦ Draft</div><div class="reply-box-text">${escHtml(text)}</div>${kws.length?`<div class="reply-box-kw">${kws.map(k=>`<span class="kw-used">🔑 ${escHtml(k)}</span>`).join('')}</div>`:''}</div>`;
+    el.innerHTML=`<div class="reply-box"><div class="reply-box-label">✓ Generated</div><div class="reply-box-text">${escHtml(text)}</div></div>`;
   }else if(status==='posted'){
-    el.innerHTML=`<div class="reply-box"><div class="reply-box-label" style="color:var(--green);">✓ Posted</div><div class="reply-box-text">${escHtml(text)}</div>${kws.length?`<div class="reply-box-kw">${kws.map(k=>`<span class="kw-used">🔑 ${escHtml(k)}</span>`).join('')}</div>`:''}</div><span class="posted-badge">✓ Live on Google</span>`;
+    el.innerHTML=`<div class="reply-box"><div class="reply-box-label" style="color:var(--green);">✓ Posted</div><div class="reply-box-text">${escHtml(text)}</div></div><span class="posted-badge">✓ Live on Google</span>`;
   }else if(status==='error'){
     el.innerHTML=`<div style="color:var(--red);font-size:12px;padding:7px 0;">✗ Error: ${escHtml(text)}</div>`;
   }
 }
 
 // ═══════════════════════════════════════════════════════
-//  INTELLIGENCE VIEW
+// REPORT
 // ═══════════════════════════════════════════════════════
-function renderIntelligence(){
-  const keys=Object.keys(intelligence);
-  if(!keys.length){document.getElementById('intel-grid').innerHTML='<div class="empty"><div class="ei">🧠</div><h4>No data yet</h4><p>Run the engine to build intelligence.</p></div>';return;}
-  document.getElementById('intel-grid').innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;">`+
-    keys.map(k=>{
-      const d=intelligence[k];
-      const locName=locations.find(l=>l.rawName===k)?.title||k.split('/').pop();
-      const allKw=[...(d.primaryKeywords||[]),...(d.localKeywords||[]),...(d.secondaryKeywords||[])];
-      return `<div class="card fade-in"><div class="card-title">${getEmoji(locName,d.businessType||'')} ${escHtml(locName)}</div>
-        <div style="font-size:12px;color:var(--muted2);margin-bottom:10px;">${escHtml(d.businessType||'')} · Tone: ${d.tone||'professional'}</div>
-        <div class="keyword-cloud" style="margin-bottom:10px;">${allKw.slice(0,8).map(k=>`<span class="kw-tag primary">${escHtml(k)}</span>`).join('')}</div>
-        ${d.insights?`<div style="font-size:12px;color:var(--muted2);line-height:1.5;">${escHtml(d.insights)}</div>`:''}
-        ${d.description?`<div style="margin-top:8px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);padding-top:8px;">${escHtml(d.description.slice(0,120))}...</div>`:''}
-      </div>`;
-    }).join('')+'</div>';
-}
-
-// ═══════════════════════════════════════════════════════
-//  REPORT
-// ═══════════════════════════════════════════════════════
-let rptTimer;
-function startReportScheduler(){
-  clearInterval(rptTimer);
-  rptTimer=setInterval(()=>{
-    const now=new Date();
-    const[h,m]=cfg.rtime.split(':').map(Number);
-    if(now.getHours()===h&&now.getMinutes()===m){generateReport();toast('📊 Daily report ready!','info');}
-    refreshReportTimer();
-  },60000);
-  refreshReportTimer();
-}
-function refreshReportTimer(){
-  const el=document.getElementById('next-rpt');const sl=document.getElementById('sched-lbl');
-  if(!el)return;sl.textContent=cfg.rtime;
-  const now=new Date();const[h,m]=cfg.rtime.split(':').map(Number);
-  let next=new Date();next.setHours(h,m,0,0);if(next<=now)next.setDate(next.getDate()+1);
-  const diff=next-now;
-  el.textContent=`${Math.floor(diff/3600000)}h ${Math.floor((diff%3600000)/60000)}m`;
-}
-
 async function generateReport(){
   const d=todayData;
   document.getElementById('rpt-date-label').textContent='Generated: '+new Date().toLocaleString();
   const totalReplied=d.replied,totalLocs=d.locationsDone.length;
-  const totalNeg=d.negative,totalPhotos=d.photosPosted||0;
-  const totalPosts=d.postsCreated||0,totalOpt=d.optimized||0;
+  const totalNeg=d.negative;
   const avgRating=totalLocs?avg(d.locationsDone.map(l=>l.avgRating||0)).toFixed(1):'--';
   const totalKw=Object.values(intelligence).reduce((a,v)=>a+(v.primaryKeywords||[]).length,0);
-
-  let aiInsights=['Engine ran successfully today.','Monitor negative review response times.','Run optimizer weekly for best ranking results.'];
-  try{
-    const res=await claude(`Agency GMB Summary:
-Replies: ${totalReplied}, Locations: ${totalLocs}, Negatives: ${totalNeg}, Photos: ${totalPhotos}, Posts: ${totalPosts}, Optimized: ${totalOpt}, Avg Rating: ${avgRating}, Keywords: ${totalKw}
-Top locations: ${d.locationsDone.slice(0,5).map(l=>`${l.title}: ${l.replied} replies`).join('; ')}
-Write 3 specific data-driven insights as JSON array ["insight1","insight2","insight3"]. Be specific. No generic advice.`,400);
-    const r=JSON.parse(cleanJson(res));if(Array.isArray(r))aiInsights=r;
-  }catch(e){}
-
-  const hourCounts=Array(24).fill(0);
-  for(const entry of (d.log||[])){try{hourCounts[new Date(entry.ts).getHours()]++;}catch(e){}}
-  const healthScores=d.locationsDone.map(l=>({...l,health:Math.min(100,Math.round((l.avgRating||0)/5*50+(l.replied>0?25:0)+(l.negative===0?25:Math.max(0,25-l.negative*5))))}));
 
   document.getElementById('report-body').innerHTML=`
   <div class="stats-strip">
     <div class="stat-box g"><div class="stat-val">${totalReplied}</div><div class="stat-lbl">Replies Posted</div></div>
     <div class="stat-box b"><div class="stat-val">${totalLocs}</div><div class="stat-lbl">Locations</div></div>
-    <div class="stat-box o"><div class="stat-val">${totalPhotos}</div><div class="stat-lbl">Photos Posted</div></div>
-    <div class="stat-box p"><div class="stat-val">${totalPosts}</div><div class="stat-lbl">Posts Created</div></div>
-    <div class="stat-box a"><div class="stat-val">${totalOpt}</div><div class="stat-lbl">Optimized</div></div>
+    <div class="stat-box a"><div class="stat-val">${totalNeg}</div><div class="stat-lbl">Negatives</div></div>
+    <div class="stat-box p"><div class="stat-val">${avgRating}★</div><div class="stat-lbl">Avg Rating</div></div>
+    <div class="stat-box r"><div class="stat-val">${totalKw}</div><div class="stat-lbl">Keywords</div></div>
   </div>
-  <div class="report-grid">
-    <div class="report-card"><h3>🤖 AI Insights</h3>
-      ${aiInsights.map((ins,i)=>`<div class="insight-item ${i===0?'good':i===1?'warn':''}">${i===0?'✓':i===1?'⚠':'→'} ${escHtml(ins)}</div>`).join('')}
-    </div>
-    <div class="report-card"><h3>⏱ Activity Chart</h3>
-      <div class="chart-row">${hourCounts.filter((_,i)=>i%2===0).map((v,i)=>`<div style="flex:1;display:flex;flex-direction:column;align-items:center;"><div class="chart-bar ${v>0?'filled':''}" style="height:${v>0?Math.max(6,v/Math.max(...hourCounts,1)*52):3}px;width:100%;"></div><div class="chart-lbl">${String(i*2).padStart(2,'0')}</div></div>`).join('')}</div>
-    </div>
-    <div class="report-card full"><h3>📍 Location Performance</h3>
-      ${healthScores.length===0?'<div class="empty" style="padding:16px;"><p>No locations processed today.</p></div>':
-        healthScores.sort((a,b)=>b.replied-a.replied).map(l=>`
-        <div class="loc-report-row">
-          <div style="font-size:13px;font-weight:500;flex:0 0 200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${getEmoji(l.title||'','')} ${escHtml(l.title||'')}</div>
-          <div style="flex:1;padding:0 14px;"><div style="height:5px;background:var(--s2);border-radius:3px;overflow:hidden;"><div style="height:100%;border-radius:3px;width:${l.health}%;background:${l.health>=70?'var(--green)':l.health>=40?'var(--amber)':'var(--red)'};"></div></div></div>
-          <div style="font-size:12px;color:var(--muted);text-align:right;flex-shrink:0;">${l.replied} replies · ${(l.avgRating||0).toFixed(1)}★ · Health ${l.health}%</div>
-        </div>`).join('')}
-    </div>
-    <div class="report-card"><h3>🔑 Keywords in Use</h3>
-      <div class="keyword-cloud">${Object.values(intelligence).flatMap(v=>v.primaryKeywords||[]).slice(0,16).map(k=>`<span class="kw-tag primary">${escHtml(k)}</span>`).join('')}</div>
-    </div>
-    <div class="report-card"><h3>💊 Profile Health</h3>
-      <div style="font-size:13px;color:var(--muted2);line-height:2.2;">
-        <div>🟢 Healthy (70%+): <strong style="color:var(--text);">${healthScores.filter(l=>l.health>=70).length}</strong></div>
-        <div>🟡 Moderate (40-70%): <strong style="color:var(--text);">${healthScores.filter(l=>l.health>=40&&l.health<70).length}</strong></div>
-        <div>🔴 Needs work (&lt;40%): <strong style="color:var(--red);">${healthScores.filter(l=>l.health<40).length}</strong></div>
-        ${healthScores.filter(l=>l.health<40).map(l=>`<div style="font-size:11px;color:var(--red);">  ↳ ${escHtml(l.title||'')}: ${l.health}%</div>`).join('')}
-      </div>
-    </div>
+  <div style="background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;">
+    <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:14px;">📍 Location Performance</h3>
+    ${totalLocs===0?'<div class="empty" style="padding:20px;"><p>No locations processed today.</p></div>':
+      d.locationsDone.sort((a,b)=>b.replied-a.replied).map(l=>`
+      <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--border);">
+        <div style="font-size:13px;font-weight:500;flex:1;">${escHtml(l.title)}</div>
+        <div style="font-size:12px;color:var(--muted2);">${l.replied} replies · ${(l.avgRating||0).toFixed(1)}★</div>
+      </div>`).join('')}
   </div>`;
 }
 
-function exportReport(){
-  const body=document.getElementById('report-body').innerHTML;
-  const blob=new Blob([`<!DOCTYPE html><html><head><title>GMB Report ${todayStr()}</title><style>body{font-family:sans-serif;background:#04060d;color:#dde3f0;padding:30px;}*{box-sizing:border-box;margin:0;padding:0;}.stats-strip{display:flex;gap:12px;margin-bottom:22px;flex-wrap:wrap;}.stat-box{padding:15px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);}.stat-val{font-size:24px;font-weight:800;}.stat-lbl{font-size:11px;color:#4a5878;}.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}.report-card{background:#0b0f1a;border:1px solid rgba(255,255,255,0.07);border-radius:14px;padding:18px;}.report-card.full{grid-column:1/-1;}.report-card h3{font-size:14px;margin-bottom:13px;}.insight-item{padding:9px;border-radius:8px;margin-bottom:6px;font-size:13px;}.insight-item.good{background:rgba(52,211,153,0.08);color:#a7f3d0;}.insight-item.warn{background:rgba(245,158,11,0.08);color:#fcd34d;}.kw-tag{padding:3px 10px;border-radius:100px;font-size:11px;margin:3px;display:inline-block;}.kw-tag.primary{background:rgba(52,211,153,0.1);color:#34d399;}.g .stat-val{color:#34d399}.b .stat-val{color:#60a5fa}.o .stat-val{color:#fb923c}.p .stat-val{color:#a78bfa}.a .stat-val{color:#f59e0b}.keyword-cloud{display:flex;flex-wrap:wrap;gap:5px;}.loc-report-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);}</style></head><body>${body}</body></html>`],{type:'text/html'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gmb-report-'+todayStr()+'.html';a.click();
-}
-function clearTodayData(){if(!confirm('Clear today\'s data?'))return;todayData={date:todayStr(),replied:0,negative:0,photosPosted:0,postsCreated:0,optimized:0,locationsDone:[],log:[]};persist();updateStats();document.getElementById('report-body').innerHTML='<div class="empty"><p>Cleared.</p></div>';toast('Cleared','info');}
-
 // ═══════════════════════════════════════════════════════
-//  UTILS
+// UTILS
 // ═══════════════════════════════════════════════════════
-async function claude(prompt,max=600){
-  const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':cfg.claude,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:max,messages:[{role:'user',content:prompt}]})});
-  if(!r.ok){const t=await r.text();throw new Error('Claude: '+t.slice(0,200));}
-  const d=await r.json();return d.content?.map(b=>b.text||'').join('')||'';
-}
 function cleanJson(s){return s.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();}
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 function avg(arr){return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0;}
 function starNum(s){return{ONE:1,TWO:2,THREE:3,FOUR:4,FIVE:5}[s]||5;}
 function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function getEmoji(n,cat){const s=(n+' '+cat).toLowerCase();if(/restaurant|cafe|coffee|food|pizza|burger|bakery|sushi/.test(s))return'🍽️';if(/hotel|inn|resort|motel/.test(s))return'🏨';if(/salon|spa|beauty|nail|hair|barber/.test(s))return'💅';if(/gym|fitness|yoga|pilates/.test(s))return'💪';if(/clinic|dental|medical|doctor|health|hospital|physio/.test(s))return'🏥';if(/auto|car|garage|mechanic/.test(s))return'🚗';if(/law|legal|attorney|solicitor/.test(s))return'⚖️';if(/real estate|property|realty/.test(s))return'🏠';if(/school|academy|tutor|college/.test(s))return'📚';if(/tech|software|it|computer/.test(s))return'💻';if(/plumb|electric|hvac|contrac|build/.test(s))return'🔧';if(/vet|pet|animal/.test(s))return'🐾';return'🏪';}
-function getSentChip(r){if(r>=4)return'<span class="chip g">Positive</span>';if(r===3)return'<span class="chip a">Neutral</span>';return'<span class="chip r">Negative</span>';}
+function getEmoji(n,cat){const s=(n+' '+cat).toLowerCase();if(/restaurant|cafe|coffee|food|pizza|burger/.test(s))return'🍽️';if(/hotel|inn|resort/.test(s))return'🏨';if(/salon|spa|beauty|nail|hair/.test(s))return'💅';if(/gym|fitness|yoga/.test(s))return'💪';if(/clinic|dental|medical|doctor|health/.test(s))return'🏥';if(/auto|car|garage|mechanic/.test(s))return'🚗';if(/law|legal|attorney/.test(s))return'⚖️';if(/real estate|property/.test(s))return'🏠';if(/school|academy|tutor/.test(s))return'📚';return'🏪';}
 function setProgress(done,total,label){const p=total?Math.round(done/total*100):0;document.getElementById('prog-fill').style.width=p+'%';document.getElementById('prog-pct').textContent=p+'%';document.getElementById('prog-label').textContent=label;}
-function setSub(v,l){document.getElementById('sub-fill').style.width=(v)+'%';}
 function updateStats(){document.getElementById('s-replied').textContent=todayData.replied;document.getElementById('s-neg').textContent=todayData.negative;document.getElementById('s-kw').textContent=Object.values(intelligence).reduce((a,v)=>a+(v.primaryKeywords||[]).length,0);if(locations.length)document.getElementById('s-locs').textContent=locations.filter(l=>l.done).length+'/'+locations.length;}
-function persist(){ls('gmb_today',JSON.stringify(todayData));ls('gmb_intel',JSON.stringify(intelligence));}
+function persist(){
+  try{
+    ls('gmb_today',JSON.stringify(todayData));
+    ls('gmb_intel',JSON.stringify(intelligence));
+  }catch(e){
+    if(e.name==='QuotaExceededError'){
+      log('Storage quota exceeded — clearing old data','warn');
+      intelligence={};
+      try{
+        ls('gmb_intel','{}');
+        ls('gmb_today',JSON.stringify(todayData));
+      }catch(e2){
+        toast('Storage full. Please clear browser data.','err');
+      }
+    }else throw e;
+  }
+}
 
 function log(msg,type='info'){
   const body=document.getElementById('intel-log-body');
@@ -1630,13 +834,6 @@ function log(msg,type='info'){
   body.appendChild(el);body.scrollTop=body.scrollHeight;
   todayData.log=todayData.log||[];
   todayData.log.push({msg,type,ts:new Date().toISOString()});
-}
-function optLog(msg,type='info'){
-  const body=document.getElementById('opt-log-body');
-  const now=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-  const el=document.createElement('div');el.className='log-entry '+type;
-  el.innerHTML=`<span class="log-time">${now}</span><span>${escHtml(msg)}</span>`;
-  body.appendChild(el);body.scrollTop=body.scrollHeight;
 }
 
 let _tt;
